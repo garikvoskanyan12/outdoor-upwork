@@ -1,0 +1,181 @@
+@use '../util' as u;
+
+.header {
+  background: #EAEBEC;
+  box-shadow: 0px 5px 10px 0px #00000033;
+  height: 100px;
+  width: 100%;
+}
+
+
+.top-product-circle {
+  border: 5px solid white;
+  left: -105px;
+  top: 52px;
+}
+
+/* header */
+
+header {
+
+  .black-friday {
+    transform: rotate(-8deg);
+  }
+
+  .close-ad-button {
+    top: 14px;
+    right: 14px;
+
+    @include u.breakpoint-down(small) {
+      top: 48px;
+    }
+  }
+
+  .basket-dropdown-menu {
+    width: 350px !important;
+    top: 40px !important;
+    right: -115px !important;
+
+    .forget-password-link {
+      color: #475156 ;
+    }
+  }
+
+  .person-dropdown-menu {
+    width: 350px !important;
+    top: 40px !important;
+    right: -34px !important;
+
+    .forget-password-link {
+      color: #475156 ;
+    }
+  }
+
+  .link-hover {
+    &:hover {
+      text-decoration: underline !important;
+      transition: all 0.3s ease;
+    }
+  }
+
+  .has-megamenu {
+    button[aria-expanded="true"] {
+      background-color: #6B8E4D !important;
+      color: white;
+    }
+
+    button[aria-expanded="false"] {
+      background-color: #F2F4F5; // Example color when collapsed
+    }
+
+  }
+
+  @media (min-width: 992px) {
+    .has-megamenu {
+      position: static !important;
+    }
+
+    .megamenu {
+      left: -5px !important;
+      width: 50% !important;
+      margin-top: 0 !important;
+      top: 80px !important;
+    }
+  }
+
+  .megamenu {
+    padding: 3rem;
+
+    a {
+      color: #5F6C72;
+    }
+
+    .tab-link-active {
+      color: #6B8E4D !important;
+      padding-bottom: 20px;
+      position: relative;
+
+      &::after {
+        content: '';
+        width: 100%;
+        height: 4px;
+        background-color: #6B8E4D;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+      }
+    }
+  }
+
+}
+
+.modal-xl {
+  --bs-modal-width: 70% !important;
+}
+
+.product-details-modal {
+  background: rgb(0, 0, 0, 0.9);
+}
+
+figure.product-figure {
+  position: relative;
+  float: left;
+  overflow: hidden;
+  margin: 10px 1%;
+  width: 100%;
+  text-align: center;
+}
+
+figure.product-figure * {
+  transition: all 0.35s ease-in-out;
+}
+
+figure.product-figure > div{
+  display: flex;
+  gap: 10px;
+  position: absolute;
+  top: 50%;
+  left: 22%;
+}
+
+figure.product-figure i {
+  border-radius: 50%;
+  font-size: 24px;
+  color: #000000;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transform: translate(-50%, -50%) scale(0);
+  transition: all 300ms 0ms cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+
+figure.product-figure i:focus{
+  color: white;
+  background-color: #6B8E4D;
+}
+
+figure.product-figure:hover img,
+figure.product-figure.hover img {
+  opacity: 0.3;
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+
+figure.product-figure:hover i,
+figure.product-figure.hover i {
+  transform: translate(-50%, -50%) scale(1);
+  transition: all 300ms 100ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.benefit-item {
+  border-right: 1px solid #dee2e6 !important;
+
+  @include u.breakpoint-down(large) {
+    border: none !important;
+  }
+}

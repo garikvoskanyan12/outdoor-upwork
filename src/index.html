@@ -1,0 +1,2554 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>For OutDoor</title>
+    <link rel="stylesheet" href=
+            "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"/>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+    <!-- todo move it to the style file  -->
+    <style>
+
+        .swiper-button-next, .swiper-button-prev {
+            background-color: #6B8E4D !important;
+            opacity: 1 !important;
+        }
+
+        .swiper-button-next:after,
+        .swiper-rtl .swiper-button-prev:after {
+            content: "" !important;
+        }
+
+        .swiper-button-prev:after, .swiper-rtl .swiper-button-next:after {
+            content: "" !important;
+        }
+    </style>
+</head>
+
+<body>
+
+<header x-data="{ toggleBlackFridayPopup: true }">
+    <!-- AD -->
+    <div x-show="toggleBlackFridayPopup" class="bg-black position-relative">
+        <div class="container d-flex justify-content-evenly justify-content-xl-between flex-wrap align-items-center py-2 gap-3 gap-md-3 gap-sm-0 flex-wrap align-items-center py-2">
+            <div>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="black-friday bg-warning-400 p-2 fw-medium">Black</div>
+                    <div class="text-white fw-medium">Friday</div>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <span class="text-white">Up to</span>
+                <span class="text-warning-400 fs-2 fw-medium mx-2">59%</span>
+                <span class="text-white">OFF</span>
+            </div>
+
+            <div>
+                <button class="fw-bold bg-warning-400 px-5 py-3 rounded">
+                    <span class="fw-bold">SHOP NOW</span>
+                    <span class="ps-1"><i class="bi bi-arrow-right"></i></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="close-ad-button position-absolute ">
+            <button @click="toggleBlackFridayPopup = false" class="bg-gray-800 text-white p-2 rounded-1"><i
+                    class="bi bi-x"></i></button>
+        </div>
+
+    </div>
+
+    <div class="w-100 bg-black"></div>
+
+    <div class="py-2 py-md-4 header d-flex align-items-center">
+        <div class="container d-flex justify-content-between align-items-center gap-3">
+            <div class="logo w-35 w-sm-auto">
+                <a
+                        class="me-auto"
+                        href="/"
+                        data-element="logo"
+                >
+                    <img
+                            src="assets/img/design/logo.svg"
+                            alt=""
+                    >
+                </a>
+            </div>
+
+            <div class="input-group w-50 d-none d-md-flex">
+                <input type="text" class="form-control p-2 border-0" placeholder="Search for anything..."
+                       aria-label="Username" aria-describedby="basic-addon1">
+                <span class="input-group-text bg-white border-0">
+                 <i class="bi bi-search"></i>
+            </span>
+            </div>
+
+            <div class="d-flex gap-2 align-items-centers">
+                <div class="basket-dropdown dropdown w-20 w-sm-auto" x-data="cart">
+                    <button class="person-dropdown-toggle-btn position-relative" type="button">
+                        <img src="assets/img/design/shopping-cart.svg" alt="">
+                        <span class="basket-product-count position-absolute align-items-center d-flex justify-content-center flex-column" x-text="products.length"></span>
+                    </button>
+                    <div class="basket-dropdown-menu dropdown-menu shadow-sm w-auto w-320 px-3 py-4">
+                        <div x-show="products.length > 0">
+                            <div class="fw-medium">Shopping Cart <span class="text-secondary" x-text="'(' + products.length + ')'"></span></div>
+
+                            <div class="mt-4 py-4 border-bottom border-top">
+                                <template x-for="product in products">
+                                    <div class="d-flex mt-3">
+                                        <div class="border">
+                                            <img src="assets/img/design/t-short.png" alt="">
+                                        </div>
+                                        <div class="mt-2 ms-2">
+                                            <div class="lh-24"><span x-text="product.title"></span></div>
+                                            <div class="mt-4 fw-medium fs-7"><span x-text="product.price"></span></div>
+                                        </div>
+
+                                        <div class="d-flex flex-column justify-content-center">
+                                            <button @click="deleteItem(product.id)" class="fs-3 text-secondary"><i
+                                                    class="bi bi-x"></i></button>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+
+                            <div class="mt-4 d-flex justify-content-between">
+                                <div>Value of products:</div>
+                                <div>$2038.00 USD</div>
+                            </div>
+
+                            <div class="mt-2 d-flex justify-content-between text-green-700">
+                                <div>Shipping:</div>
+                                <div>0.00 USD</div>
+                            </div>
+
+                            <div class="mt-4 d-flex justify-content-between">
+                                <div class="fs-5 text-secondary">Sub-Total:</div>
+                                <div class="fs-5">$2038.00 USD</div>
+                            </div>
+
+                            <div class="mt-4">
+                                <a href="check-out.html"
+                                   class="d-block fw-bold bg-green-700 text-white w-100 py-3 text-center">
+                                    <span>CHECKOUT NOW</span>
+                                    <span class="ps-1"><i class="bi bi-arrow-right"></i></span>
+                                </a>
+                            </div>
+
+                            <div class="mt-3">
+                                <a href="shopping-card.html"
+                                   class="d-block fw-bold bg-white w-100 py-3 text-center text-green-700 border-green-700 px-3 py-3 border">
+                                    <span>VIEW CART</span>
+                                    <span class="ps-1"><i class="bi bi-arrow-right"></i></span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div x-show="products.length < 1">
+                            Product not found
+                        </div>
+                    </div>
+                </div>
+
+                <a href="wishlist.html" class="d-block heart d-flex w-20 w-sm-auto justify-content-center flex-column">
+                    <img src="assets/img/design/heart.svg" alt="">
+                </a>
+
+                <div class="person-dropdown dropdown w-20 w-sm-auto">
+                    <button class="person-dropdown-toggle-btn" type="button">
+                        <img src="assets/img/design/user.svg" alt="">
+                    </button>
+                    <div class="person-dropdown-menu dropdown-menu shadow-sm w-auto w-280 px-3 py-4">
+                        <div class="container-md">
+                            <div class="text-center fw-medium">Sign in to your account</div>
+
+                            <div class="mt-4">
+                                <div>
+                                    <div>
+                                        <label for="email" class="fs-7">Email Address</label>
+                                    </div>
+                                    <div class="input-group mt-2">
+                                        <input type="text" class="form-control" id="email">
+                                    </div>
+                                </div>
+
+                                <div class="mt-4" x-data="{ eyeActive: false }">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <label for="password" class="fs-7">Password</label>
+                                        <a href="forget-password.html" class="text-secondary forget-password-link fs-7">Forget
+                                            Password</a>
+                                    </div>
+                                    <div class="input-group mt-2">
+                                        <input :type="eyeActive ? 'text': 'password'" class="form-control"
+                                               id="password">
+                                        <button @click="eyeActive = !eyeActive"
+                                                class="input-group-text bg-white border">
+                                            <i class="bi" :class="eyeActive ? 'bi-eye': 'bi-eye-slash'"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4">
+                                    <a href="dashboard.html"
+                                       class="d-block fw-bold bg-green-700 text-white w-100 py-3 text-center">
+                                        <span>LOGIN</span>
+                                        <span class="ps-1"><i class="bi bi-arrow-right"></i></span>
+                                    </a>
+                                </div>
+
+                                <div class="mt-4 d-flex align-items-center gap-3">
+                                    <div class="border w-50"></div>
+                                    <div class="bg-white  text-secondary fs-7">or</div>
+                                    <div class="border w-50"></div>
+                                </div>
+
+
+                                <div class="mt-4">
+                                    <div class="d-flex align-items-center justify-content-center gap-3">
+                                        <button class="w-30 bg-white py-3 text-center border rounded">
+                                            <img src="assets/img/design/apple.svg" alt="">
+                                        </button>
+
+                                        <button class="w-30 bg-white py-3 text-center border rounded">
+                                            <img src="assets/img/design/google.svg" alt="">
+                                        </button>
+
+                                        <button class="w-30 bg-white py-3 text-center border rounded">
+                                            <img src="assets/img/design/facebook.svg" alt="">
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 d-flex align-items-center gap-3">
+                                    <div class="border w-45"></div>
+                                    <div class="bg-white  text-secondary fs-7 text-nowrap">Don’t have account</div>
+                                    <div class="border w-45"></div>
+                                </div>
+
+                                <div class="mt-3">
+                                    <a href="sign-up.html"
+                                       class="d-block fw-bold bg-white w-100 py-3 text-center text-green-700 border-green-700 px-3 py-3 border">
+                                        <span>CREATE ACCOUNT</span>
+                                        <span class="ps-1"><i class="bi bi-arrow-right"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="burger  m-0">
+                    <button
+                            id="menu-btn"
+                            class="burger__btn"
+                    >
+                        <span class="burger__line burger__line-top"></span>
+                        <span class="burger__line burger__line-middle"></span>
+                        <span class="burger__line burger__line-bottom"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="border-1 border-bottom d-none d-md-block">
+        <div class="container navbar d-flex justify-content-between align-content-center">
+            <nav class="d-none d-sm-block">
+                <div class="nav-items d-flex align-items-center gap-3">
+                    <div class="nav-item dropdown has-megamenu">
+                        <button
+                                class="dropdown-toggle fs-7 fs-lg-6 rounded  fw-medium  py-3 px-4"
+                                type="button" id="megaMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false"
+                        >Clothing
+                        </button>
+                        <div class="dropdown-menu dropdown-menu megamenu shadow-sm p-0"
+                             role="menu"
+                             x-data="megamenu"
+                        >
+                            <div class="container-md">
+                                <div class="row g-3">
+                                    <!-- Menu -->
+                                    <div class="col-12">
+                                        <div class="col-megamenu ps-5 py-2">
+                                            <!-- Tabs -->
+                                            <ul class="nav nav-tabs gap-3 mb-4 border-0">
+                                                <li class="nav-item">
+                                                    <a
+                                                            class="nav-link tab-link tab-link-active category-link fw-medium position-relative fs-6  text-capitalize "
+                                                            aria-current="page"
+                                                            href="#all"
+                                                            @click="selectTab($el)"
+                                                    >All</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a
+                                                            class="nav-link tab-link position-relative category-link fs-6 fw-medium  text-capitalize text-secondary"
+                                                            href="#men"
+                                                            @click="selectTab($el)"
+                                                    >Men</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a
+                                                            class="nav-link tab-link position-relative category-link fs-6 fw-medium text-capitalize text-secondary"
+                                                            href="#women"
+                                                            @click="selectTab($el)"
+                                                            @="($el)"
+                                                    >Women</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a
+                                                            class="nav-link tab-link position-relative category-link fs-6 fw-medium text-capitalize text-secondary"
+                                                            href="#kids"
+                                                            @click="selectTab($el)"
+                                                    >Kids</a>
+                                                </li>
+
+                                                <li class="nav-item">
+                                                    <a
+                                                            class="nav-link tab-link position-relative category-link fs-6 fw-medium text-capitalize text-secondary"
+                                                            href="#other"
+                                                            @click="selectTab($el)"
+                                                    >Other</a>
+                                                </li>
+                                            </ul>
+                                            <!-- Menu Items -->
+                                            <div class="row text-capitalize">
+                                                <div class="col-4">
+                                                    <span class="d-block mb-3 fw-medium text-dark-blue">Clothing</span>
+                                                    <ul class="px-0">
+                                                        <li class="my-3">
+                                                            <a href="#">Jackets and Vests</a>
+                                                        </li>
+                                                        <li class="my-3">
+                                                            <a href="#">Hoodies and Sweaters</a>
+                                                        </li>
+                                                        <li class="my-3">
+                                                            <a href="#">T-Shirts</a>
+                                                        </li>
+                                                        <li class="my-3">
+                                                            <a href="#">Pants</a>
+                                                        </li>
+                                                        <li class="my-3">
+                                                            <a href="#">Shorts</a>
+                                                        </li>
+                                                        <li class="my-3">
+                                                            <a href="#">Dresses and Skirts</a>
+                                                        </li>
+                                                        <li class="my-3">
+                                                            <a href="#">Caps</a>
+                                                        </li>
+                                                        <li class="my-3">
+                                                            <a href="#">Socks</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div>
+                                                        <span class="d-block mb-3 fw-medium text-dark-blue">Equipment</span>
+                                                        <ul class="px-0 mb-4">
+                                                            <li class="my-3">
+                                                                <a href="#">Backpacks and Bags</a>
+                                                            </li>
+                                                            <li class="my-3">
+                                                                <a href="#">Tents</a>
+                                                            </li>
+                                                            <li class="my-3">
+                                                                <a href="#">Mats</a>
+                                                            </li>
+                                                            <li class="my-3">
+                                                                <a href="#">Sleeping Bags</a>
+                                                            </li>
+                                                            <li class="my-3">
+                                                                <a href="#">Trekking Poles</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div>
+                                                        <span class="d-block mb-3 fw-medium text-dark-blue">Accessories</span>
+                                                        <ul class="px-0">
+                                                            <li>
+                                                                <a href="#">Sandals</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <span class="d-block mb-3 fw-medium text-dark-blue">By activity</span>
+                                                    <ul class="px-0">
+                                                        <li class="my-3">
+                                                            <a href="#">Camping</a>
+                                                        </li>
+                                                        <li class="my-3">
+                                                            <a href="#">Active Movement</a>
+                                                        </li>
+                                                        <li class="my-3">
+                                                            <a href="#">Hiking and Trekking</a>
+                                                        </li>
+                                                        <li class="my-3">
+                                                            <a href="#">Winter Sports</a>
+                                                        </li>
+                                                        <li class="my-3">
+                                                            <a href="#">Travel</a>
+                                                        </li>
+                                                        <li class="my-3">
+                                                            <a href="#">Run and Bike</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="shop.html" class="text-black fw-medium">Outdoor</a>
+                    <a href="shop.html" class="text-black fw-medium">Ski</a>
+                    <a href="shop.html" class="text-black fw-medium">All sports</a>
+                    <a href="shop.html" class="text-black fw-medium">Brands</a>
+                    <a href="shop.html" class="text-black fw-medium">Outlet</a>
+                </div>
+            </nav>
+
+            <div class="email d-none d-sm-flex align-items-center gap-2">
+                <div class="email-icon">
+                    <img src="assets/img/design/mail.svg" alt="">
+                </div>
+
+                <div>email@website.com</div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<div class="mobile-menu">
+    <nav class="mobile-menu__nav">
+        <ul class="mobile-menu__list px-4">
+            <li class="mobile-menu__item">
+                <a
+                        href="shop.html"
+                        class="mobile-menu__link text-white link-underline-0"
+                >Clothing</a>
+            </li>
+            <li class="mobile-menu__item">
+                <a
+                        href="shop.html"
+                        class="mobile-menu__link text-white link-underline-0"
+                >Outdoor</a>
+            </li>
+            <li class="mobile-menu__item">
+                <a
+                        href="shop.html"
+                        class="mobile-menu__link text-white link-underline-0"
+                >Ski</a>
+            </li>
+            <li class="mobile-menu__item">
+                <a
+                        href="shop.html"
+                        class="mobile-menu__link text-white link-underline-0"
+                >All sports</a>
+            </li>
+            <li class="mobile-menu__item">
+                <a
+                        href="shop.html"
+                        class="mobile-menu__link text-white link-underline-0"
+                >Brands</a>
+            </li>
+
+            <li class="mobile-menu__item">
+                <a
+                        href="shop.html"
+                        class="mobile-menu__link text-white link-underline-0"
+                >Outlet</a>
+            </li>
+
+            <li class="mobile-menu__item">
+                <div class="input-group">
+                    <input type="text" class="form-control p-2 border-0" placeholder="Search for anything..."
+                           aria-label="Username" aria-describedby="basic-addon1">
+                    <span class="input-group-text bg-white border-0">
+                 <i class="bi bi-search"></i>
+            </span>
+                </div>
+            </li>
+
+        </ul>
+
+
+        <div class="mt-5 text-center text-white">
+            email@website.com
+        </div>
+    </nav>
+</div>
+
+<main>
+    <div class="container" x-data="{ openModal: false }">
+        <div class="d-flex  justify-content-center justify-content-start flex-wrap gap-4 mt-4">
+            <div class="w-100 w-md-65 p-0" data-element="home-slider-inner">
+                <div
+                        data-element="slider-wrapper"
+                        class="position-relative"
+                >
+
+                    <div class="home-slider rounded-2 position-relative">
+                        <div class="swiper-wrapper">
+                            <!-- Slides -->
+                            <div class="swiper-slide d-flex flex-column text-white px-5">
+                                <div class="d-flex flex-column mt-10 mt-xl-15">
+                                    <div class="swiper-slide-sub-title color fw-medium">
+                                        <span>― Subtitle</span>
+                                    </div>
+
+                                    <div class="w-auto w-xl-35 mt-2 fw-medium fs-1">
+                                        <span>Title can be placed here</span>
+                                    </div>
+
+                                    <div class="w-auto w-xl-45 mt-2">
+                                        <p class="">Lorem ipsup dolor sit amet. Non sunt quaerat velLorem ipsum dolor
+                                            si</p>
+                                    </div>
+
+                                    <div class="home-slide-buttons mt-2 d-flex flex-wrap justify-content-center justify-content-md-start gap-3">
+                                        <button class="men py-3 px-5 fw-medium rounded-1 text-nowrap">
+                                            <span>
+                                                Men
+                                            </span>
+                                            <span>
+                                            <i class="bi bi-arrow-right"></i>
+                                            </span>
+                                        </button>
+                                        <button class="women py-3 px-5 border-0 fw-medium rounded-1 text-nowrap">
+                                            <span>
+                                                Women
+                                            </span>
+                                            <span class="">
+                                            <i class="bi bi-arrow-right"></i>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="swiper-slide d-flex flex-column text-white px-5">
+                                <div class="d-flex flex-column mt-10 mt-xl-15">
+                                    <div class="swiper-slide-sub-title color fw-medium">
+                                        <span>― Subtitle</span>
+                                    </div>
+
+                                    <div class="w-auto w-xl-35 mt-2 fw-medium fs-1">
+                                        <span>Title can be placed here</span>
+                                    </div>
+
+                                    <div class="w-auto w-xl-45 mt-2">
+                                        <p class="">Lorem ipsup dolor sit amet. Non sunt quaerat velLorem ipsum dolor
+                                            si</p>
+                                    </div>
+
+                                    <div class="home-slide-buttons mt-2 d-flex flex-wrap justify-content-center justify-content-md-start gap-3">
+                                        <button class="men py-3 px-5 fw-medium rounded-1 text-nowrap">
+                                            <span>
+                                                Men
+                                            </span>
+                                            <span>
+                                            <i class="bi bi-arrow-right"></i>
+                                            </span>
+                                        </button>
+                                        <button class="women py-3 px-5 border-0 fw-medium rounded-1 text-nowrap">
+                                            <span>
+                                                Women
+                                            </span>
+                                            <span class="">
+                                            <i class="bi bi-arrow-right"></i>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-pagination homeSlidePagination"></div>
+                    </div>
+                </div>
+            </div>
+            <div class=" p-0 d-flex flex-column">
+                <div class="w-100 w-md-420 bg-gray-700 rounded-1 pt-4">
+                    <div class="position-relative">
+                        <button class="px-4 py-3 rounded-1 bg-warning-400 fw-bold position-absolute"
+                                style="right: 15px; top: 0">
+                            29% OFF
+                        </button>
+                    </div>
+
+                    <div class="d-flex">
+                        <div class="d-flex flex-column justify-content-start w-60 p-4 pb-5">
+                            <p class="text-warning-500">SUMMER SALES</p>
+                            <p class="fw-bolder text-white">Some promo</p>
+                            <button class="fw-bold bg-green-700 rounded-1 py-3 px-4 text-center text-white text-nowrap">
+                                SHOP NOW
+                                <i class="p-1  bi bi-arrow-right"></i>
+                            </button>
+                        </div>
+                        <div class="w-60 h-85 px-2 mt-auto">
+                            <img src="assets/img/design/promo1.png" class="d-block h-100 w-100 object-fit-cover"
+                                 style="margin-left: -35px" alt=""/>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex w-100 w-md-420 bg-gray-500 rounded-1 mt-4 pt-4">
+                    <div class="w-60 h-85 px-2 py-4">
+                        <img src="assets/img/design/promo2.png" class="d-block h-100 w-100 object-fit-cover" alt=""/>
+                    </div>
+
+                    <div class="d-flex flex-column justify-content-start w-60 p-2 p-sm-5">
+                        <p class="fw-bolder">Some promo</p>
+                        <p class="fw-bolder text-secondary-500">$299 USD</p>
+                        <button class="fw-bold bg-green-700 rounded-1 py-3 px-4 text-center text-white text-nowrap">
+                            SHOP NOW
+                            <i class="p-1  bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex flex-wrap gap-4 mt-4 border justify-content-center rounded-1 p-4">
+            <div class="d-flex gap-3 align-items-center border-0 benefit-item text-center px-4 flex-wrap justify-content-center">
+                <div>
+                    <img src="assets/img/design/package.svg" alt="">
+                </div>
+                <div class="w-100 w-md-auto">
+                    <div class="fw-medium">
+                        FASTED DELIVERY
+                    </div>
+                    <div class="fs-7 mt-1 text-gray-600">
+                        Delivery in 24/H
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex gap-3 align-items-center  border-0 benefit-item text-center px-4 flex-wrap justify-content-center">
+                <div>
+                    <img src="assets/img/design/trophy.svg" alt="">
+                </div>
+                <div class="w-100 w-md-auto">
+                    <div class="fw-medium">
+                        24 HOURS RETURN
+                    </div>
+                    <div class="fs-7 mt-1 text-gray-600">
+                        100% money-back guarantee
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex gap-3 align-items-center  border-0 benefit-item text-center px-4 flex-wrap justify-content-center">
+                <div>
+                    <img src="assets/img/design/credit-card.svg" alt="">
+                </div>
+                <div class="w-100 w-md-auto">
+                    <div class="fw-medium">
+                        SECURE PAYMENT
+                    </div>
+                    <div class="fs-7 mt-1 text-gray-600">
+                        Your money is safe
+                    </div>
+                </div>
+            </div>
+
+            <div style="padding-right: 65px"
+                 class="d-flex gap-3 align-items-center text-center px-4 flex-wrap justify-content-center">
+                <div>
+                    <img src="assets/img/design/headphone.svg" alt="">
+                </div>
+                <div class="w-100 w-md-auto">
+                    <div class="fw-medium">
+                        SUPPORT 24/7
+                    </div>
+                    <div class="fs-7 mt-1 text-gray-600">
+                        Live contact/message
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5 d-flex justify-content-center justify-content-sm-between gap-3 align-items-center flex-wrap p-0">
+            <div class="d-flex justify-content-center justify-content-sm-between gap-3 flex-wrap align-items-center gap-2">
+                <div>
+                    <h5 class="m-0 fw-bolder">Best Deals</h5>
+                </div>
+                <div class="ms-2">
+                    Deals ends in
+                </div>
+                <div class="p-2 bg-warning-300">
+                    16d : 21h : 57m : 23s
+                </div>
+            </div>
+            <a href="shop.html" class="fw-bold fs-6 text-black">
+                Browse All Product
+                <i class="ps-2 bi bi-arrow-right"></i>
+            </a>
+        </div>
+
+        <div class="mt-3 border rounded-1">
+            <div class="d-flex w-100 flex-wrap flex-lg-nowrap justify-content-center justify-content-xl-start">
+                <div class="w-350 p-3 border position-relative">
+                    <div class="position-absolute top-0 mt-2 z-1">
+                        <div class="text-white px-3 py-2 bg-green-700 text-center rounded-1">
+                            32% OFF
+                        </div>
+
+                        <div class="bg-danger-500 text-white w-76 px-1 py-2 mt-2 text-center rounded-1">
+                            NEWS
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <div class="pt-5">
+                            <figure class="product-figure">
+                                <img src="assets/img/design/t-short.png" class="d-block m-auto w-100" alt="">
+                                <div style="left: 30%">
+                                    <i class="bi bi-heart"></i>
+                                    <i class="bi bi-cart"></i>
+                                    <i class="bi bi-eye" @click="openModal = !openModal"></i>
+                                </div>
+                            </figure>
+                        </div>
+
+                        <div class="ps-2 pt-5">
+                            <div class="d-flex align-items-center gap-2">
+                                <div>
+                                    <span>
+                                        <i class="bi bi-star-fill text-warning-500"></i>
+                                    </span>
+                                    <span>
+                                        <i class="bi bi-star-fill text-warning-500"></i>
+                                    </span>
+                                    <span>
+                                        <i class="bi bi-star-fill text-warning-500"></i>
+                                    </span>
+                                    <span>
+                                        <i class="bi bi-star-fill text-warning-500"></i>
+                                    </span>
+                                    <span>
+                                        <i class="bi bi-star-fill text-warning-500"></i>
+                                    </span>
+                                </div>
+                                <div>
+                                    <span class="fs-7 text-secondary">(52,677)</span>
+                                </div>
+                            </div>
+
+                            <div class="fs-7 mt-4">
+                                Lorem ipsum dolor sit amet. Non sunt quaerat velLorem ipsum dolor sit ...
+                            </div>
+
+                            <div class="fs-7 mt-4">
+                                <span class="text-secondary text-decoration-line-through">
+                                    $865.99
+                                </span>
+
+                                <span class="fw-bolder text-gray-700">
+                                    $442.12
+                                </span>
+                            </div>
+
+                            <div class="mt-4 text-secondary">
+                                Sit consequuntur rerum et nesciunt quasi et sunt voluptas ut necessitatibus molestias.
+                                Eos perferendis quia
+                            </div>
+
+                            <div class="mt-4 d-flex gap-2 align-items-center">
+                                <button class="bg-primary-100 py-3 px-3 rounded">
+                                    <span>
+                                        <i class="bi bi-heart"></i>
+                                    </span>
+                                </button>
+
+                                <button class="bg-green-700 text-white fw-medium rounded-1 py-3 px-4">
+                                    <span class="me-1">
+                                        <i class="bi bi-cart"></i>
+                                    </span>
+
+                                    <span>
+                                      ADD TO CARD
+                                    </span>
+                                </button>
+
+                                <a href="product-details.html"
+                                   class="d-block bg-primary-100 py-3 px-3 rounded text-black">
+                                    <span>
+                                         <i class="bi bi-eye"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-column flex-wrap">
+                    <div class="d-flex flex-wrap justify-content-center justify-content-xl-start">
+                        <div class="w-236 border p-1 pb-2 position-relative">
+                            <div class="position-absolute top-0 mt-2 p-lg-2">
+                                <div class="fs-7 text-white px-2 py-2 bg-green-700 text-center rounded-1">
+                                    25% OFF
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="pt-5">
+                                    <figure class="product-figure">
+                                        <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                        <div>
+                                            <i class="bi bi-heart"></i>
+                                            <i class="bi bi-cart"></i>
+                                            <i class="bi bi-eye" @click="openModal = !openModal"></i>
+                                        </div>
+                                    </figure>
+                                </div>
+
+                                <div class="ps-2">
+                                    <div class="fs-7 mt-1">
+                                        Lorem ipsum dolor sit amet. Non sunt quaerat velLorem ipsum dolor sit ...
+                                    </div>
+
+                                    <div class="fs-7 mt-3">
+                                     <span class="fw-bold text-gray-700">
+                                           $442.12
+                                         </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="w-236 border p-1 pb-2 position-relative">
+                            <div>
+                                <div class="pt-5">
+                                    <figure class="product-figure">
+                                        <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                        <div>
+                                            <i class="bi bi-heart"></i>
+                                            <i class="bi bi-cart"></i>
+                                            <i class="bi bi-eye" @click="openModal = !openModal"></i>
+                                        </div>
+                                    </figure>
+                                </div>
+
+                                <div class="ps-2">
+                                    <div class="fs-7 mt-1">
+                                        Lorem ipsum dolor sit amet. Non sunt quaerat velLorem ipsum dolor sit ...
+                                    </div>
+
+                                    <div class="fs-7 mt-3">
+                                         <span class="fw-bold text-gray-700">
+                                               $442.12
+                                         </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="w-236 border p-1 pb-2 position-relative">
+                            <div class="position-absolute top-0 mt-2 p-lg-2">
+                                <div class="fs-7 text-white px-2 py-2 bg-green-700 text-center rounded-1">
+                                    25% OFF
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="pt-5">
+                                    <figure class="product-figure">
+                                        <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                        <div>
+                                            <i class="bi bi-heart"></i>
+                                            <i class="bi bi-cart"></i>
+                                            <i class="bi bi-eye" @click="openModal = !openModal"></i>
+                                        </div>
+                                    </figure>
+                                </div>
+
+                                <div class="ps-2">
+                                    <div class="fs-7 mt-1">
+                                        Lorem ipsum dolor sit amet. Non sunt quaerat velLorem ipsum dolor sit ...
+                                    </div>
+
+                                    <div class="fs-7 mt-3">
+                                        <span class="fw-bold text-gray-700">
+                                            $442.12
+                                         </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="w-236 border p-1 pb-2 position-relative">
+                            <div>
+                                <div class="pt-5">
+                                    <figure class="product-figure">
+                                        <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                        <div>
+                                            <i class="bi bi-heart"></i>
+                                            <i class="bi bi-cart"></i>
+                                            <i class="bi bi-eye" @click="openModal = !openModal"></i>
+                                        </div>
+                                    </figure>
+                                </div>
+
+                                <div class="ps-2">
+                                    <div class="fs-7 mt-1">
+                                        Lorem ipsum dolor sit amet. Non sunt quaerat velLorem ipsum dolor sit ...
+                                    </div>
+
+                                    <div class="fs-7 mt-3">
+                                        <span class="fw-bold text-gray-700">
+                                            $442.12
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="d-flex border-top flex-wrap justify-content-center justify-content-xl-start">
+                        <div class="w-236 border p-1 pb-2 position-relative">
+
+                            <div>
+                                <div class="pt-5">
+                                    <figure class="product-figure">
+                                        <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                        <div>
+                                            <i class="bi bi-heart"></i>
+                                            <i class="bi bi-cart"></i>
+                                            <i class="bi bi-eye" @click="openModal = !openModal"></i>
+                                        </div>
+                                    </figure>
+                                </div>
+
+                                <div class="ps-2">
+                                    <div class="fs-7 mt-1">
+                                        Lorem ipsum dolor sit amet. Non sunt quaerat velLorem ipsum dolor sit ...
+                                    </div>
+
+                                    <div class="fs-7 mt-3">
+                                        <span class="fw-bold text-gray-700">
+                                            $442.12
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="w-236 border p-1 position-relative">
+                            <div>
+                                <div class="pt-5">
+                                    <figure class="product-figure">
+                                        <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                        <div>
+                                            <i class="bi bi-heart"></i>
+                                            <i class="bi bi-cart"></i>
+                                            <i class="bi bi-eye" @click="openModal = !openModal"></i>
+                                        </div>
+                                    </figure>
+                                </div>
+
+                                <div class="ps-2">
+                                    <div class="fs-7 mt-1">
+                                        Lorem ipsum dolor sit amet. Non sunt quaerat velLorem ipsum dolor sit ...
+                                    </div>
+
+                                    <div class="fs-7 mt-3">
+                                        <span class="fw-bold text-gray-700">
+                                            $442.12
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="w-236 border p-1 position-relative">
+                            <div class="position-absolute top-0 mt-2 p-lg-2">
+                                <div class="fs-7 text-white px-2 py-2 bg-green-700 text-center rounded-1">
+                                    25% OFF
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="pt-5">
+                                    <figure class="product-figure">
+                                        <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                        <div>
+                                            <i class="bi bi-heart"></i>
+                                            <i class="bi bi-cart"></i>
+                                            <i class="bi bi-eye" @click="openModal = !openModal"></i>
+                                        </div>
+                                    </figure>
+                                </div>
+
+                                <div class="ps-2">
+                                    <div class="fs-7 mt-1">
+                                        Lorem ipsum dolor sit amet. Non sunt quaerat velLorem ipsum dolor sit ...
+                                    </div>
+
+                                    <div class="fs-7 mt-3">
+                                        <span class="fw-bold text-gray-700">
+                                            $442.12
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="w-236 border p-1 position-relative">
+                            <div>
+                                <div class="pt-5">
+                                    <figure class="product-figure">
+                                        <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                        <div>
+                                            <i class="bi bi-heart"></i>
+                                            <i class="bi bi-cart"></i>
+                                            <i class="bi bi-eye" @click="openModal = !openModal"></i>
+                                        </div>
+                                    </figure>
+                                </div>
+
+                                <div class="ps-2">
+                                    <div class="fs-7 mt-1">
+                                        Lorem ipsum dolor sit amet. Non sunt quaerat velLorem ipsum dolor sit ...
+                                    </div>
+
+                                    <div class="fs-7 mt-3">
+                                        <span class="fw-bold text-gray-700">
+                                            $442.12
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="fw-bold text-center">Shop with Categories</h2>
+
+            <div class="swiper homeCarousel mt-4">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide w-100 overflow-auto">
+                        <div class="d-flex gap-2">
+                            <div class="border rounded-1 pb-2">
+                                <div>
+                                    <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                </div>
+
+                                <div class="fs-6 mt-3 text-center fw-medium text-gray-900">
+                                    Category name
+                                </div>
+                            </div>
+                            <div class="border rounded-1 pb-2">
+                                <div>
+                                    <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                </div>
+
+                                <div class="fs-6 mt-3 text-center fw-medium text-gray-900">
+                                    Category name
+                                </div>
+                            </div>
+                            <div class="border rounded-1 pb-2">
+                                <div>
+                                    <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                </div>
+
+                                <div class="fs-6 mt-3 text-center fw-medium text-gray-900">
+                                    Category name
+                                </div>
+                            </div>
+                            <div class="border rounded-1 p-1">
+                                <div>
+                                    <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                </div>
+
+                                <div class="fs-6 mt-3 text-center fw-medium text-gray-900">
+                                    Category name
+                                </div>
+                            </div>
+                            <div class="border rounded-1 p-1">
+                                <div>
+                                    <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                </div>
+
+                                <div class="fs-6 mt-3 text-center fw-medium text-gray-900">
+                                    Category name
+                                </div>
+                            </div>
+                            <div class="border rounded-1 p-1">
+                                <div>
+                                    <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                </div>
+
+                                <div class="fs-6 mt-3 text-center fw-medium text-gray-900">
+                                    Category name
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="swiper-slide w-100 overflow-auto">
+                        <div class="d-flex gap-2">
+                            <div class="border rounded-1 p-1">
+                                <div>
+                                    <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                </div>
+
+                                <div class="fs-6 mt-3 text-center fw-medium text-gray-900">
+                                    Category name
+                                </div>
+                            </div>
+                            <div class="border rounded-1 p-1">
+                                <div>
+                                    <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                </div>
+
+                                <div class="fs-6 mt-3 text-center fw-medium text-gray-900">
+                                    Category name
+                                </div>
+                            </div>
+                            <div class="border rounded-1 p-1">
+                                <div>
+                                    <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                </div>
+
+                                <div class="fs-6 mt-3 text-center fw-medium text-gray-900">
+                                    Category name
+                                </div>
+                            </div>
+                            <div class="border rounded-1 p-1">
+                                <div>
+                                    <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                </div>
+
+                                <div class="fs-6 mt-3 text-center fw-medium text-gray-900">
+                                    Category name
+                                </div>
+                            </div>
+                            <div class="border rounded-1 p-1">
+                                <div>
+                                    <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                </div>
+
+                                <div class="fs-6 mt-3 text-center fw-medium text-gray-900">
+                                    Category name
+                                </div>
+                            </div>
+                            <div class="border rounded-1 p-1">
+                                <div>
+                                    <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                </div>
+
+                                <div class="fs-6 mt-3 text-center fw-medium text-gray-900">
+                                    Category name
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="swiper-button-prev border bw-3 border-green-700 rounded-circle w-48 h-48">
+                    <a href="#"
+                       class="text-center h-100 d-flex flex-column justify-content-center align-items-center text-white fs-2">
+                        <i class="bi bi-arrow-left"></i>
+                    </a>
+                </div>
+
+                <div class="swiper-button-next border bw-3 border-green-700 rounded-circle w-48 h-48">
+                    <a href="#"
+                       class="text-center h-100 d-flex flex-column justify-content-center align-items-center text-white fs-2">
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <div class="d-flex gap-2 flex-wrap flex-lg-nowrap">
+                <div class="w-100 w-lg-auto">
+                    <div class="intro-sport-category gap-4 gap-sm-1 d-flex align-items-center flex-wrap flex-sm-nowrap justify-content-center justify-content-sm-center  bg-gray-500 rounded p-4">
+                        <div class="mt-4 ms-3 text-center">
+                            <div class="bg-secondary-500 p-2 rounded-1 px-3 d-inline text-white">
+                                INTRODUCING
+                            </div>
+
+                            <div class="mt-4">
+                                <h2 class="fw-bold">Sports Category</h2>
+                            </div>
+
+                            <div class="mt-3 text-secondary fs-6 w-100 w-sm-65">
+                                Loremipsup Lorem ipsum dolor sit amet. Non sunt quaerat vel
+                            </div>
+
+                            <div class="mt-3">
+                                <button class="fw-bold bg-green-700 px-4 py-3 text-white rounded-1">
+                                    <span>SHOW NOW</span>
+                                    <span class="ps-1"><i class="bi bi-arrow-right"></i></span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <img src="assets/img/design/sport-image-1.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="w-100 w-lg-auto">
+                    <div class="intro-sport-category gap-4 gap-sm-1 d-flex align-items-center flex-wrap flex-sm-nowrap justify-content-center justify-content-sm-center bg-secondary-300 rounded p-4">
+                        <div class="mt-4 ms-3 text-center">
+                            <div class="bg-warning-500 p-2 px-3 rounded-1 d-inline fw-bold">
+                                INTRODUCING
+                            </div>
+
+                            <div class="mt-4 text-white">
+                                <h2 class="fw-bold">Sports Category</h2>
+                            </div>
+
+                            <div class="mt-3 text-white fs-6 w-100 w-sm-65">
+                                *Loremipsup Lorem ipsum dolor sit amet. Non sunt quaerat vel
+                            </div>
+
+                            <div class="mt-3 text-white">
+                                <button class="fw-bold bg-green-700 px-4 py-3 rounded-1">
+                                    <span>SHOW NOW</span>
+                                    <span class="ps-1"><i class="bi bi-arrow-right"></i></span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="position-relative w-200">
+                            <span class="position-absolute top-n5 end-15 w-80 h-80 d-flex justify-content-center flex-column text-center  bg-secondary-800 text-white rounded-circle fw-medium">$590</span>
+                            <img src="assets/img/design/sport-image-2.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <div class="d-flex flex-wrap justify-content-center justify-content-xl-start gap-3 gap-xl-1">
+                <div class="px-3 py-5 w-100 w-xl-25 bg-success-100 rounded-1">
+                    <div class="d-flex flex-column align-items-center">
+                        <div class="text-center fw-bold fs-7 text-danger-600">
+                            TOP OFFER
+                        </div>
+
+                        <div class="mt-3">
+                            <h2>32% Discount</h2>
+                        </div>
+
+                        <div class="text-secondary fs-7 text-center mt-2">
+                            For all products
+                        </div>
+
+                        <div class="mt-3 d-flex align-items-center gap-2">
+                            <div>Offers ends in:</div>
+                            <div class="bg-white fw-bold p-2 fs-7 rounded-1">ENDS OF CHRISTMAS</div>
+                        </div>
+
+                        <div class="mt-4">
+                            <button class="fw-bold bg-green-700 rounded-1 py-3 px-4 text-center text-white text-nowrap">
+                                SHOW NOW
+                                <i class="p-1  bi bi-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 w-100 text-center">
+                        <img src="assets/img/design/image-01.png" alt="">
+                    </div>
+                </div>
+
+                <div class="flex-0 flex-xl-1 justify-content-center justify-content-xl-around">
+                    <div class="d-flex align-items-center justify-content-center justify-content-xl-between flex-wrap">
+                        <div class="w-100 w-lg-auto"><h4 class="fw-bold text-center text-lg-center">Featured
+                            Products</h4></div>
+                        <div class="d-flex flex-wrap justify-content-center align-items-center gap-3 gap-xl-2 mt-2 mt-xl-0">
+                            <button class="feature-product-item text-secondary">All Product</button>
+                            <button class="feature-product-item text-secondary">Category</button>
+                            <button class="feature-product-item text-secondary">Category</button>
+                            <button class="feature-product-item text-secondary">Category</button>
+
+                            <a href="shop.html" class="fw-bold fs-6 text-green-700 ms-2">
+                                Browse All Product
+                                <i class="ps-2 bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-wrap justify-content-center justify-content-xl-start gap-2 mt-4">
+                        <div class="products-items w-236 border p-1 rounded-1 position-relative">
+                            <div class="position-absolute top-0 p-1 mt-2">
+                                <div class="fs-7 text-white px-1 py-2 px-3 bg-warning-900 text-center rounded-1">
+                                    SALE
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="pt-5">
+                                    <figure class="product-figure">
+                                        <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                        <div>
+                                            <i class="bi bi-heart"></i>
+                                            <i class="bi bi-cart"></i>
+                                            <i class="bi bi-eye" @click="openModal = !openModal"></i>
+                                        </div>
+                                    </figure>
+                                </div>
+
+                                <div class="mt-3">
+                                    <div class="ps-2 pt-2">
+                                        <div>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <span class="text-gray-800-light">(56,767)</span>
+                                            <div class="fs-7 mt-3">
+                                                Lorem ipsum dolor sit amet. Non sunt quaerat vel
+                                            </div>
+
+                                            <div class="fs-7 mt-3">
+                                                <span class="fw-bold text-gray-700">
+                                                    $442.12
+                                             </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="products-items w-236 rounded-1 border p-3 position-relative">
+                            <div>
+                                <div class="pt-5">
+                                    <figure class="product-figure">
+                                        <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                        <div>
+                                            <i class="bi bi-heart"></i>
+                                            <i class="bi bi-cart"></i>
+                                            <i class="bi bi-eye" @click="openModal = !openModal"></i>
+                                        </div>
+                                    </figure>
+                                </div>
+
+                                <div class="mt-3">
+                                    <div class="ps-2 pt-2">
+                                        <div>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <span class="text-gray-800-light">(56,767)</span>
+                                            <div class="fs-7 mt-3">
+                                                Lorem ipsum dolor sit amet. Non sunt quaerat vel
+                                            </div>
+
+                                            <div class="fs-7 mt-3">
+                                                <span class="fw-bold text-gray-700">
+                                                    $442.12
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="products-items w-236 rounded-1 border p-3 position-relative">
+                            <div>
+                                <div class="pt-5">
+                                    <figure class="product-figure">
+                                        <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                        <div>
+                                            <i class="bi bi-heart"></i>
+                                            <i class="bi bi-cart"></i>
+                                            <i class="bi bi-eye" @click="openModal = !openModal"></i>
+                                        </div>
+                                    </figure>
+                                </div>
+
+                                <div class="mt-3">
+                                    <div class="ps-2 pt-2">
+                                        <div>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <span class="text-gray-800-light">(56,767)</span>
+                                            <div class="fs-7 mt-3">
+                                                Lorem ipsum dolor sit amet. Non sunt quaerat vel
+                                            </div>
+
+                                            <div class="fs-7 mt-3">
+                                                <span class="fw-bold text-gray-700">
+                                                    $442.12
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="products-items w-236 rounded-1 border p-3 position-relative">
+                            <div>
+                                <div class="pt-5">
+                                    <figure class="product-figure">
+                                        <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                        <div>
+                                            <i class="bi bi-heart"></i>
+                                            <i class="bi bi-cart"></i>
+                                            <i class="bi bi-eye" @click="openModal = !openModal"></i>
+                                        </div>
+                                    </figure>
+                                </div>
+
+                                <div class="ps-2">
+                                    <div class="fs-7 mt-1">
+                                        Lorem ipsum dolor sit amet. Non sunt quaerat velLorem ipsum dolor sit ...
+                                    </div>
+
+                                    <div class="fs-7 mt-3">
+                                         <span class="fw-bold text-gray-700">
+                                               $442.12
+                                         </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="d-flex flex-wrap  justify-content-center justify-content-xl-start gap-2 mt-3">
+                        <div class="products-items w-236 border p-1 rounded-1 position-relative">
+                            <div>
+                                <div class="pt-5">
+                                    <figure class="product-figure">
+                                        <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                        <div>
+                                            <i class="bi bi-heart"></i>
+                                            <i class="bi bi-cart"></i>
+                                            <i class="bi bi-eye" @click="openModal = !openModal"></i>
+                                        </div>
+                                    </figure>
+                                </div>
+
+                                <div class="mt-3">
+                                    <div class="ps-2 pt-2">
+                                        <div>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <span class="text-gray-800-light">(56,767)</span>
+                                            <div class="fs-7 mt-3">
+                                                Lorem ipsum dolor sit amet. Non sunt quaerat vel
+                                            </div>
+
+                                            <div class="fs-7 mt-3">
+                                                <span class="fw-bold text-gray-700">
+                                                    $442.12
+                                             </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="products-items w-236 rounded-1 border p-3 position-relative">
+                            <div class="position-absolute top-0 p-1 mt-2">
+                                <div class="fs-7 text-white px-1 py-2 px-3 bg-warning-900 text-center rounded-1">
+                                    SALE
+                                </div>
+                            </div>
+                            <div>
+                                <div class="pt-5">
+                                    <figure class="product-figure">
+                                        <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                        <div>
+                                            <i class="bi bi-heart"></i>
+                                            <i class="bi bi-cart"></i>
+                                            <i class="bi bi-eye" @click="openModal = !openModal"></i>
+                                        </div>
+                                    </figure>
+                                </div>
+
+                                <div class="mt-3">
+                                    <div class="ps-2 pt-2">
+                                        <div>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <span class="text-gray-800-light">(56,767)</span>
+                                            <div class="fs-7 mt-3">
+                                                Lorem ipsum dolor sit amet. Non sunt quaerat vel
+                                            </div>
+
+                                            <div class="fs-7 mt-3">
+                                                <span class="fw-bold text-gray-700">
+                                                    $442.12
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="products-items w-236 rounded-1 border p-3 position-relative">
+                            <div>
+                                <div class="pt-5">
+                                    <figure class="product-figure">
+                                        <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                        <div>
+                                            <i class="bi bi-heart"></i>
+                                            <i class="bi bi-cart"></i>
+                                            <i class="bi bi-eye" @click="openModal = !openModal"></i>
+                                        </div>
+                                    </figure>
+                                </div>
+
+                                <div class="mt-3">
+                                    <div class="ps-2 pt-2">
+                                        <div>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <span class="text-gray-800-light">(56,767)</span>
+                                            <div class="fs-7 mt-3">
+                                                Lorem ipsum dolor sit amet. Non sunt quaerat vel
+                                            </div>
+
+                                            <div class="fs-7 mt-3">
+                                                <span class="fw-bold text-gray-700">
+                                                    $442.12
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="products-items w-236 rounded-1 border p-3 position-relative">
+                            <div class="position-absolute top-0 p-1 mt-2">
+                                <div class="fs-7 text-white px-1 py-2 px-3 bg-warning-900 text-center rounded-1">
+                                    SALE
+                                </div>
+                            </div>
+                            <div>
+                                <div class="pt-5">
+                                    <figure class="product-figure">
+                                        <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                        <div>
+                                            <i class="bi bi-heart"></i>
+                                            <i class="bi bi-cart"></i>
+                                            <i class="bi bi-eye" @click="openModal = !openModal"></i>
+                                        </div>
+                                    </figure>
+                                </div>
+
+                                <div class="ps-2">
+                                    <div class="fs-7 mt-1">
+                                        Lorem ipsum dolor sit amet. Non sunt quaerat velLorem ipsum dolor sit ...
+                                    </div>
+
+                                    <div class="fs-7 mt-3">
+                                         <span class="fw-bold text-gray-700">
+                                               $442.12
+                                         </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <div class="d-flex flex-wrap flex-xl-nowrap gap-2">
+                <div class="flex-0 flex-xl-1 justify-content-center justify-content-xl-around">
+                    <div class="d-flex align-items-center justify-content-center justify-content-xl-between flex-wrap">
+                        <div class="w-100 w-lg-auto"><h4 class="fw-bold text-center text-lg-center">Featured
+                            Products</h4></div>
+                        <div class="d-flex flex-wrap justify-content-center align-items-center gap-3 gap-xl-2 mt-2 mt-xl-0">
+                            <button class="feature-product-item text-secondary">All Product</button>
+                            <button class="feature-product-item text-secondary">Category</button>
+                            <button class="feature-product-item text-secondary">Category</button>
+                            <button class="feature-product-item text-secondary">Category</button>
+
+                            <a href="shop.html" class="fw-bold fs-6 text-green-700 ms-2">
+                                Browse All Product
+                                <i class="ps-2 bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-wrap justify-content-center gap-3 gap-xl-2 mt-4">
+                        <div class="products-items w-236 rounded-1 border p-3 position-relative">
+                            <div>
+                                <div class="pt-5">
+                                    <figure class="product-figure">
+                                        <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                        <div>
+                                            <i class="bi bi-heart"></i>
+                                            <i class="bi bi-cart"></i>
+                                            <i class="bi bi-eye" @click="openModal = !openModal"></i>
+                                        </div>
+                                    </figure>
+                                </div>
+
+                                <div class="mt-3">
+                                    <div class="ps-2 pt-2">
+                                        <div>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <span class="text-gray-800-light">(56,767)</span>
+                                            <div class="fs-7 mt-3">
+                                                Lorem ipsum dolor sit amet. Non sunt quaerat vel
+                                            </div>
+
+                                            <div class="fs-7 mt-3">
+                                                <span class="fw-bold text-gray-700">
+                                                    $442.12
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="products-items w-236 border rounded-1 p-3 position-relative">
+                            <div>
+                                <div class="pt-5">
+                                    <figure class="product-figure">
+                                        <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                        <div>
+                                            <i class="bi bi-heart"></i>
+                                            <i class="bi bi-cart"></i>
+                                            <i class="bi bi-eye" @click="openModal = !openModal"></i>
+                                        </div>
+                                    </figure>
+                                </div>
+
+                                <div class="mt-3">
+                                    <div class="ps-2 pt-2">
+                                        <div>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <span class="text-gray-800-light">(56,767)</span>
+                                            <div class="fs-7 mt-3">
+                                                Lorem ipsum dolor sit amet. Non sunt quaerat vel
+                                            </div>
+
+                                            <div class="fs-7 mt-3">
+                                                <span class="fw-bold text-gray-700">
+                                                    $442.12
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="products-items w-236 border rounded-1 p-3 position-relative">
+                            <div class="position-absolute top-0 p-1 mt-2">
+                                <div class="fs-7 text-white px-1 py-2 px-3 bg-warning-900 text-center rounded-1">
+                                    SALE
+                                </div>
+                            </div>
+                            <div>
+                                <div class="pt-5">
+                                    <figure class="product-figure">
+                                        <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                        <div>
+                                            <i class="bi bi-heart"></i>
+                                            <i class="bi bi-cart"></i>
+                                            <i class="bi bi-eye" @click="openModal = !openModal"></i>
+                                        </div>
+                                    </figure>
+                                </div>
+
+                                <div class="mt-3">
+                                    <div class="ps-2 pt-2">
+                                        <div>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <span class="text-gray-800-light">(56,767)</span>
+                                            <div class="fs-7 mt-3">
+                                                Lorem ipsum dolor sit amet. Non sunt quaerat vel
+                                            </div>
+
+                                            <div class="fs-7 mt-3">
+                                                <span class="fw-bold text-gray-700">
+                                                    $442.12
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="products-items w-236 border rounded-1 p-3 position-relative">
+                            <div>
+                                <div class="pt-5">
+                                    <figure class="product-figure">
+                                        <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                        <div>
+                                            <i class="bi bi-heart"></i>
+                                            <i class="bi bi-cart"></i>
+                                            <i class="bi bi-eye" @click="openModal = !openModal"></i>
+                                        </div>
+                                    </figure>
+                                </div>
+
+                                <div class="mt-3">
+                                    <div class="ps-2 pt-2">
+                                        <div>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <span class="text-gray-800-light">(56,767)</span>
+                                            <div class="fs-7 mt-3">
+                                                Lorem ipsum dolor sit amet. Non sunt quaerat vel
+                                            </div>
+
+                                            <div class="fs-7 mt-3">
+                                                <span class="fw-bold text-gray-700">
+                                                    $442.12
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="products-items w-236 border rounded-1 p-3 position-relative">
+                            <div>
+                                <div class="pt-5">
+                                    <figure class="product-figure">
+                                        <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                        <div>
+                                            <i class="bi bi-heart"></i>
+                                            <i class="bi bi-cart"></i>
+                                            <i class="bi bi-eye" @click="openModal = !openModal"></i>
+                                        </div>
+                                    </figure>
+                                </div>
+
+                                <div class="mt-3">
+                                    <div class="ps-2 pt-2">
+                                        <div>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <span class="text-gray-800-light">(56,767)</span>
+                                            <div class="fs-7 mt-3">
+                                                Lorem ipsum dolor sit amet. Non sunt quaerat vel
+                                            </div>
+
+                                            <div class="fs-7 mt-3">
+                                                <span class="fw-bold text-gray-700">
+                                                    $442.12
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="products-items w-236 border rounded-1 p-3 position-relative">
+                            <div class="position-absolute top-0 p-1 mt-2">
+                                <div class="fs-7 text-white px-1 py-2 px-3 bg-warning-900 text-center rounded-1">
+                                    SALE
+                                </div>
+                            </div>
+                            <div>
+                                <div class="pt-5">
+                                    <figure class="product-figure">
+                                        <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                        <div>
+                                            <i class="bi bi-heart"></i>
+                                            <i class="bi bi-cart"></i>
+                                            <i class="bi bi-eye" @click="openModal = !openModal"></i>
+                                        </div>
+                                    </figure>
+                                </div>
+
+                                <div class="mt-3">
+                                    <div class="ps-2 pt-2">
+                                        <div>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <span class="text-gray-800-light">(56,767)</span>
+                                            <div class="fs-7 mt-3">
+                                                Lorem ipsum dolor sit amet. Non sunt quaerat vel
+                                            </div>
+
+                                            <div class="fs-7 mt-3">
+                                                <span class="fw-bold text-gray-700">
+                                                    $442.12
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="products-items w-236 border rounded-1 p-3 position-relative">
+                            <div>
+                                <div class="pt-5">
+                                    <figure class="product-figure">
+                                        <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                        <div>
+                                            <i class="bi bi-heart"></i>
+                                            <i class="bi bi-cart"></i>
+                                            <i class="bi bi-eye" @click="openModal = !openModal"></i>
+                                        </div>
+                                    </figure>
+                                </div>
+
+                                <div class="mt-3">
+                                    <div class="ps-2 pt-2">
+                                        <div>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <span class="text-gray-800-light">(56,767)</span>
+                                            <div class="fs-7 mt-3">
+                                                Lorem ipsum dolor sit amet. Non sunt quaerat vel
+                                            </div>
+
+                                            <div class="fs-7 mt-3">
+                                                <span class="fw-bold text-gray-700">
+                                                    $442.12
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="products-items w-236 border rounded-1 p-3 position-relative">
+                            <div class="position-absolute top-0 p-1 mt-2">
+                                <div class="fs-7 text-white px-1 py-2 px-3 bg-warning-900 text-center rounded-1">
+                                    SALE
+                                </div>
+                            </div>
+                            <div>
+                                <div class="pt-5">
+                                    <figure class="product-figure">
+                                        <img src="assets/img/design/t-short.png" class="d-block m-auto" alt="">
+                                        <div>
+                                            <i class="bi bi-heart"></i>
+                                            <i class="bi bi-cart"></i>
+                                            <i class="bi bi-eye" @click="openModal = !openModal"></i>
+                                        </div>
+                                    </figure>
+                                </div>
+
+                                <div class="mt-3">
+                                    <div class="ps-2 pt-2">
+                                        <div>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <i class="bi bi-star-fill text-gray-700"></i>
+                                            <span class="text-gray-800-light">(56,767)</span>
+                                            <div class="fs-7 mt-3">
+                                                Lorem ipsum dolor sit amet. Non sunt quaerat vel
+                                            </div>
+
+                                            <div class="fs-7 mt-3">
+                                                <span class="fw-bold text-gray-700">
+                                                    $442.12
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-100 w-xl-25">
+                    <div class="px-3 py-5 bg-warning-100 rounded">
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="fs-6 fw-bolder px-4 py-5 bg-gray-200">
+                                PRODUCT
+                            </div>
+
+                            <div class="mt-3 fw-bold text-center">
+                                <h2>Lorem ipsum dolor sit amet. Non sunt quaerat vel</h2>
+                            </div>
+
+                            <div class="text-secondary fs-6 text-center mt-2">
+                                Lorem ipsum dolor sit amet.
+                            </div>
+
+                            <div class="text-secondary fs-6 text-center mt-2">
+                                Lorem ipsum dolor sit amet.
+                            </div>
+
+                            <div class="mt-3 d-flex align-items-center gap-2">
+                                <div>Only for:</div>
+                                <div class="bg-white p-2 fs-7 rounded fw-bold">$299 USD</div>
+                            </div>
+
+                            <div class="mt-4">
+                                <button class="fw-bold bg-green-700 rounded-1 py-3 px-5 text-center text-white text-nowrap">
+                                    SHOW NOW
+                                    <i class="p-1  bi bi-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 bg-secondary-900 py-5 px-2 rounded d-flex justify-content-center align-items-center flex-column">
+                        <button class="p-3 bg-gray-600-bold rounded-1 text-white">SUMMER SALES</button>
+
+                        <div class="mt-3 fs-2 fw-bold text-white">37% DISCOUNT</div>
+
+                        <div class="mt-3 text-white">
+                            only for <span class="text-warning-500">NAME</span> product.
+                        </div>
+
+                        <div class="mt-3">
+                            <button class="fw-bold bg-gray-800 rounded-1 py-3 px-5 text-center text-white text-nowrap">
+                                SHOP NOW
+                                <i class="p-1  bi bi-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <div class="bg-primary-100 pb-7 pb-xl-1 w-100 d-flex flex-wrap justify-content-center justify-content-xl-between align-items-center py-1 px-3 rounded gap-3 gap-xl-0">
+                <div class="pt-5 pb-5 ps-5 w-100 w-xl-35">
+                    <div>
+                        <span class="text-white p-2 rounded-1 bg-secondary-500">
+                            SAVE UP TO $200.00
+                        </span>
+                    </div>
+
+                    <div class="mt-3">
+                        <h1 class="fw-bold">Top Product name</h1>
+                    </div>
+
+                    <h4 class="mt-3">Sit consequuntur rerum et nesciunt quasi et sunt voluptas ut necessitatibus
+                        molestia
+                    </h4>
+
+                    <div class="mt-3">
+                        <button class="fw-bold bg-green-700 px-5 py-3 text-white rounded-1">
+                            <span>SHOW NOW</span>
+                            <span class="ps-1"><i class="bi bi-arrow-right"></i></span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="d-flex w-50 w-xl-auto position-relative">
+                    <div>
+                        <img src="assets/img/design/image-02.png" alt="">
+                    </div>
+
+                    <div class="position-absolute start-n35">
+                        <img src="assets/img/design/image-03.png" alt="">
+                    </div>
+
+                    <span class="top-product-circle position-absolute w-71 w-xl-110 h-71 h-xl-110 d-flex justify-content-center flex-column text-center bg-primary-200 rounded-circle fw-medium">$199</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5 d-flex justify-content-center pb-5">
+            <div class="d-flex flex-wrap flex-xl-nowrap justify-content-center  justify-content-xl-start gap-3 w-100 w-xl-75">
+                <div class="w-45 w-xl-35">
+                    <div class="w-100">
+                        <div class="fw-bold fs-6">BEST SELLERS</div>
+
+                        <div class="mt-3 w-100 d-flex flex-column">
+                            <div class="d-flex align-items-center border rounded-1 p-3 gap-1">
+                                <div class="w-110 bg-light">
+                                    <img src="assets/img/design/t-short.png" alt="">
+                                </div>
+                                <div>
+                                    <div>Lorem ipsum dolor sit amet. Non sunt quaerat vel</div>
+                                    <div class="mt-2 fw-bold fs-7">$1,500</div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center border p-3 mt-3 rounded-1 gap-1">
+                                <div class="w-110 bg-light">
+                                    <img src="assets/img/design/t-short.png" alt="">
+                                </div>
+                                <div>
+                                    <div>Lorem ipsum dolor sit amet. Non sunt quaerat vel</div>
+                                    <div class="mt-2 fw-bold fs-7">$1,500</div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center border p-3 rounded-1 mt-3 gap-1">
+                                <div class="w-110 bg-light">
+                                    <img src="assets/img/design/t-short.png" alt="">
+                                </div>
+                                <div>
+                                    <div>Lorem ipsum dolor sit amet. Non sunt quaerat vel</div>
+                                    <div class="mt-2 fw-bold fs-7">$1,500</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-45 w-xl-35">
+                    <div class="w-100">
+                        <div class="fw-bold fs-6">TOP RATED</div>
+
+                        <div class="mt-3 w-100 d-flex flex-column">
+                            <div class="d-flex align-items-center border p-3 rounded-1 gap-1">
+                                <div class="w-110 bg-light">
+                                    <img src="assets/img/design/t-short.png" alt="">
+                                </div>
+                                <div>
+                                    <div>Lorem ipsum dolor sit amet. Non sunt quaerat vel</div>
+                                    <div class="mt-2 fw-bold fs-7">$1,500</div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center border p-3 rounded-1 mt-3 gap-1">
+                                <div class="w-110 bg-light">
+                                    <img src="assets/img/design/t-short.png" alt="">
+                                </div>
+                                <div>
+                                    <div>Lorem ipsum dolor sit amet. Non sunt quaerat vel</div>
+                                    <div class="mt-2 fw-bold fs-7">$1,500</div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center border p-3 mt-3 rounded-1 gap-1">
+                                <div class="w-110 bg-light">
+                                    <img src="assets/img/design/t-short.png" alt="">
+                                </div>
+                                <div>
+                                    <div>Lorem ipsum dolor sit amet. Non sunt quaerat vel</div>
+                                    <div class="mt-2 fw-bold fs-7">$1,500</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-45 w-xl-35">
+                    <div class="w-100">
+                        <div class="fw-bold fs-6">NEW ARRIVAL</div>
+
+                        <div class="mt-3 w-100 d-flex flex-column">
+                            <div class="d-flex align-items-center border p-3 rounded-1 gap-1">
+                                <div class="w-110 bg-light">
+                                    <img src="assets/img/design/t-short.png" alt="">
+                                </div>
+                                <div>
+                                    <div>Lorem ipsum dolor sit amet. Non sunt quaerat vel</div>
+                                    <div class="mt-2 fw-bold fs-7">$1,500</div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center border p-3 mt-3 rounded-1 gap-1">
+                                <div class="w-110 bg-light">
+                                    <img src="assets/img/design/t-short.png" alt="">
+                                </div>
+                                <div>
+                                    <div>Lorem ipsum dolor sit amet. Non sunt quaerat vel</div>
+                                    <div class="mt-2 fw-bold fs-7">$1,500</div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center border p-3 mt-3 rounded-1 gap-1">
+                                <div class="w-110 bg-light">
+                                    <img src="assets/img/design/t-short.png" alt="">
+                                </div>
+                                <div>
+                                    <div>Lorem ipsum dolor sit amet. Non sunt quaerat vel</div>
+                                    <div class="mt-2 fw-bold fs-7">$1,500</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div x-show="openModal">
+            <div class="modal show border-0 rounded  product-details-modal px-3" tabindex="-1" role="dialog"
+                 style="display: block !important;">
+                <div class="modal-dialog modal-xl top-15" role="document">
+                    <div class="modal-content border-0 rounded">
+                        <div class="modal-header position-relative border-0">
+                            <button @click="openModal = false"
+                                    class="position-absolute rounded-circle end-n5 bg-gray-800 text-white fs-3 w-48 h-48 text-center">
+                                <i class="bi bi-x"></i></button>
+                        </div>
+                        <div class="modal-body p-4">
+                            <div class="d-flex flex-wrap flex-xl-nowrap mt-4 gap-5">
+                                <div class="product-details-img w-100 w-xl-37" x-data="{
+        images: [
+            'http://localhost:4003/assets/img/t-short.png',
+            'http://localhost:4003/assets/img/t-short.png',
+            'http://localhost:4003/assets/img/t-short.png',
+            'http://localhost:4003/assets/img/t-short.png',
+            'http://localhost:4003/assets/img/t-short.png',
+            'http://localhost:4003/assets/img/t-short.png',
+        ],
+        currentIndex: 0,
+        prevImage() {
+            this.currentIndex = (this.currentIndex === 0) ? (this.images.length - 1) : (this.currentIndex - 1);
+            this.slideToCurrentIndex();
+        },
+        nextImage() {
+            this.currentIndex = (this.currentIndex === this.images.length - 1) ? 0 : (this.currentIndex + 1);
+            this.slideToCurrentIndex();
+        },
+        slideToCurrentIndex() {
+            const subImagesContainer = this.$refs.subImages;
+            const imageWidth = subImagesContainer.offsetWidth / this.images.length;
+            const newPosition = this.currentIndex * imageWidth;
+            subImagesContainer.scrollLeft = newPosition;
+        }
+    }">
+                                    <div class="main-image border w-100">
+                                        <img :src="images[currentIndex]" alt="Main Image">
+                                    </div>
+
+                                    <div class="sub-images-slider w-100">
+                                        <div class="prev bg-primary-500 text-white d-flex justify-content-center align-items-center p-2 w-6 h-6"
+                                             @click="prevImage"><i class="bi bi-arrow-left"></i></div>
+                                        <div class="sub-images" x-ref="subImages">
+                                            <template x-for="(image, index) in images" :key="index">
+                                                <img :src="image" alt="Sub Image"
+                                                     @click="currentIndex = index"
+                                                     :class="{ 'active': index === currentIndex }">
+                                            </template>
+                                        </div>
+                                        <div class="next bg-primary-500 text-white d-flex justify-content-center align-items-center p-2 w-6 h-6"
+                                             @click="nextImage"><i class="bi bi-arrow-right"></i></div>
+                                    </div>
+                                </div>
+
+                                <div class="w-100 w-xl-58">
+                                    <div>
+                                        <i class="bi bi-star-fill text-primary-500"></i>
+                                        <i class="bi bi-star-fill text-primary-500"></i>
+                                        <i class="bi bi-star-fill text-primary-500"></i>
+                                        <i class="bi bi-star-fill text-primary-500"></i>
+                                        <i class="bi bi-star-fill text-primary-500"></i>
+                                        <span class="fw-bold mx-2">4.7 Star Rating</span>
+                                        <span class="text-gray-600">(21,671 User feedback)</span>
+
+                                        <h5 class="mt-3">Et similique velit aut temporibus vitae a
+                                            perspiciatis sint</h5>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mt-4">
+                                        <div>
+                                            <span class="text-gray-600">Sku:</span>
+                                            <span class="fw-bold">A264671</span>
+
+                                            <div class="mt-2">
+                                                <span class="text-gray-600">Brand:</span>
+                                                <span class="fw-bold">BrandName</span>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <span class="text-gray-600">Availability:</span>
+                                            <span class="text-green-700 fw-bold">In Stock</span>
+                                            <div class="mt-2">
+                                                <span class="text-gray-600">Category:</span>
+                                                <span class="fw-bold">Category</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-3 d-flex align-items-baseline gap-3">
+                                        <h4 class="text-secondary-500">$1699</h4>
+                                        <h5 class="text-gray-800-light text-decoration-line-through">
+                                            $1999.00</h5>
+                                        <button class="bg-warning-400 p-2 fw-bold">21% OFF</button>
+                                    </div>
+
+                                    <hr class="border-1"/>
+
+                                    <div class="d-flex justify-content-between">
+                                        <div class="w-15">
+                                            <p>Color</p>
+                                            <div class="d-flex gap-3">
+                                                <button class="bg-gray-300 w-6 h-6 p-3"
+                                                        style="border-radius: 50px"></button>
+                                                <button class="bg-gray-200-light w-6 h-6 p-3"
+                                                        style="border-radius: 50px"></button>
+                                            </div>
+                                        </div>
+
+                                        <div class="w-50">
+                                            <p>Size</p>
+                                            <select class="form-select"
+                                                    aria-label="Default select example">
+                                                <option selected>XS</option>
+                                                <option value="1">L</option>
+                                                <option value="2">S</option>
+                                                <option value="3">M</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex gap-2 mt-4 justify-content-between flex-wrap row-gap-3">
+                                        <div x-data="{ count: 0 }">
+                                            <div class="counter border rounded-1 px-4 py-2">
+                                                <button @click="count--" class="p-2"><i
+                                                        class="bi bi-dash"></i></button>
+                                                <span class="count-value p-3" x-text="count"></span>
+                                                <button @click="count++" class="p-2"><i
+                                                        class="bi bi-plus"></i></button>
+                                            </div>
+                                        </div>
+                                        <button class="fw-bold bg-primary-500 rounded-1 text-white px-5 py-3 py-sm-2">
+                                            ADD TO
+                                            CARD <i
+                                                class="bi bi-cart"></i></button>
+                                        <button class="bw-3 border border-primary-500 px-4 rounded-1 py-3 py-sm-2">BUY
+                                            NOW
+                                        </button>
+                                    </div>
+
+                                    <div class="mt-3 d-flex align-items-center justify-content-between">
+                                        <div class="d-flex gap-3 align-items-center flex-wrap row-gap-3">
+                        <span class="text-gray-700 ml-3"><img
+                                src="./assets/img/design/heart.png"/> Add to Wishlist</span>
+                                            <span class="text-gray-700">
+                        <img src="./assets/img/design/compare.png"/>
+                        Add to Compare</span>
+                                        </div>
+
+                                        <div>
+                                            <span class="text-gray-700">Share product:</span>
+                                            <img src="./assets/img/design/Copy.png" class="m-lg-1"/>
+                                            <img src="./assets/img/design/Facebook.png" class="m-lg-1"/>
+                                            <img src="./assets/img/design/Twitter.png" class="m-lg-1"/>
+                                            <img src="./assets/img/design/Pinterest.png"
+                                                 class="m-lg-1"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-3 border-2">
+                                        <h6>100% Guarantee Safe Checkout</h6>
+                                        <img src="./assets/img/design/payments.png" alt=""/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="mt-4 bg-gray-500 d-flex justify-content-center pb-5">
+        <div class="w-75 pt-5">
+            <div class="text-center">
+                <h2 class="fw-bold">Latest News</h2>
+            </div>
+
+            <div class="mt-5 d-flex flex-wrap gap-3 justify-content-center">
+                <div class="w-360 p-4 bg-white border rounded-1 shadow-sm">
+                    <div>
+                        <img src="assets/img/design/news-1.png" alt="">
+                    </div>
+                    <div class="mt-4">
+                        <div class="d-flex align-items-center gap-3">
+                            <div>
+                                <span class="text-green-700"><i class="bi bi-person-circle"></i></span>
+                                <span class="fs-7 ms-1 text-secondary">Kristin</span>
+                            </div>
+                            <div>
+                                <span class="text-green-700"><i class="bi bi-calendar"></i></span>
+                                <span class="fs-7 ms-1 text-secondary">19 Dec, 2013</span>
+                            </div>
+
+                            <div>
+                                <span class="text-green-700"><i class="bi bi-chat-dots"></i></span>
+                                <span class="fs-7 ms-1 text-secondary">453</span>
+                            </div>
+                        </div>
+
+                        <div class="fw-medium mt-3 fs-6">
+                            Cras nisl dolor, accumsan et metus sit amet, vulputate condimentum dolor.
+                        </div>
+
+                        <div class="mt-3 fs-6 text-secondary">
+                            Maecenas scelerisque, arcu quis tempus egestas, ligula diam molestie lectus, tincidunt
+                            malesuada
+                            arcu metus posuere metus.
+                        </div>
+
+                        <button class="mt-4 border-green-700 px-3 py-3 bg-white border bw-2 rounded-1">
+                            <a href="blog-details.html" class="fs-7 fw-bolder text-green-700">
+                                <span>READ MORE</span>
+                                <span class="ps-1"><i class="bi bi-arrow-right"></i></span>
+                            </a>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="w-360 p-4 bg-white border rounded-1 shadow-sm">
+                    <div>
+                        <img src="assets/img/design/news-1.png" alt="">
+                    </div>
+                    <div class="mt-4">
+                        <div class="d-flex align-items-center gap-3">
+                            <div>
+                                <span class="text-green-700"><i class="bi bi-person-circle"></i></span>
+                                <span class="fs-7 ms-1 text-secondary">Robert</span>
+                            </div>
+                            <div>
+                                <span class="text-green-700"><i class="bi bi-calendar"></i></span>
+                                <span class="fs-7 ms-1 text-secondary">28 Nov, 2015</span>
+                            </div>
+
+                            <div>
+                                <span class="text-green-700"><i class="bi bi-chat-dots"></i></span>
+                                <span class="fs-7 ms-1 text-secondary">738</span>
+                            </div>
+                        </div>
+
+                        <div class="fw-medium mt-3 fs-6">
+                            Curabitur pulvinar aliquam lectus, non blandit erat mattis vitae.
+                        </div>
+
+                        <div class="mt-3 fs-6 text-secondary">
+                            Mauris scelerisque odio id rutrum volutpat. Pellentesque urna odio, vulputate at tortor
+                            vitae, hendrerit blandit lorem.
+                        </div>
+
+                        <button class="mt-4 border-primary-100 px-3 py-3 bg-white border bw-2 rounded-1">
+                            <a href="blog-details.html" class="fs-7 fw-bolder text-green-700">
+                                <span>READ MORE</span>
+                                <span class="ps-1"><i class="bi bi-arrow-right"></i></span>
+                            </a>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="w-360 p-4 bg-white border rounded-1 shadow-sm">
+                    <div>
+                        <img src="assets/img/design/news-1.png" alt="">
+                    </div>
+                    <div class="mt-4">
+                        <div class="d-flex align-items-center gap-3">
+                            <div>
+                                <span class="text-green-700"><i class="bi bi-person-circle"></i></span>
+                                <span class="fs-7 ms-1 text-secondary">Arlene</span>
+                            </div>
+                            <div>
+                                <span class="text-green-700"><i class="bi bi-calendar"></i></span>
+                                <span class="fs-7 ms-1 text-secondary">9 May, 2014</span>
+                            </div>
+
+                            <div>
+                                <span class="text-green-700"><i class="bi bi-chat-dots"></i></span>
+                                <span class="fs-7 ms-1 text-secondary">826</span>
+                            </div>
+                        </div>
+
+                        <div class="fw-medium mt-3 fs-6">
+                            Curabitur massa orci, consectetur et blandit ac, auctor et tellus.
+                        </div>
+
+                        <div class="mt-3 fs-6 text-secondary">
+                            Pellentesque vestibulum lorem vel gravida aliquam. Morbi porta, odio id suscipit mattis,
+                            risus augue condimentum purus.
+                        </div>
+
+                        <button class="mt-4 border-green-700 px-3 py-3 bg-white border bw-2 rounded-1">
+                            <a href="blog-details.html" class="fs-7 fw-bolder text-green-700">
+                                <span>READ MORE</span>
+                                <span class="ps-1"><i class="bi bi-arrow-right"></i></span>
+                            </a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-secondary-700 d-flex w-100 justify-content-center py-5 text-white">
+        <div>
+            <div class="d-flex justify-content-center gap-5">
+                <div class=" fw-medium">Logo</div>
+                <div class=" fw-medium">Logo</div>
+                <div class=" fw-medium">Logo</div>
+                <div class=" fw-medium">Logo</div>
+            </div>
+
+            <div class="mt-5 text-center px-2">
+                <span class="fw-medium  fs-3">Subscribe to our newsletter to get news first</span>
+            </div>
+
+            <div class="mt-4 w-75  text-center m-auto">
+                <div>
+                    Praesent fringilla erat a lacinia egestas. Donec vehicula tempor libero et cursus. Donec non quam
+                    urna.
+                    Quisque vitae porta ipsum.
+                </div>
+            </div>
+
+            <div class="mt-5 w-90 w-xl-75 bg-white input-group px-3 rounded-1 m-auto">
+                <input type="text" class="form-control p-4 border-0" placeholder="Email address">
+                <div class="input-group-append d-flex flex-column justify-content-center align-items-center">
+                    <button class="fw-bold bg-green-700 px-2 px-xl-5  py-3 text-white rounded-1">
+                        <span>SUBSCRIBE</span>
+                        <span class="ps-1"><i class="bi bi-arrow-right"></i></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer bg-gray-900 text-white pb-4">
+    <div class="footer-content d-flex justify-content-between flex-wrap row-gap-5">
+        <div class="d-flex flex-column gap-1">
+            <div class="logo d-block d-sm-none">
+                <a
+                        class="me-auto"
+                        href="/"
+                        data-element="logo"
+                >
+                    <img
+                            src="assets/img/design/logo.svg"
+                            alt=""
+                    >
+                </a>
+            </div>
+            <p class="w-250 text-gray-400 mt-3">At reprehenderit quod qui harum temporibus ea perferendis fugiat
+                et quae esse</p>
+            <p>info@logo.com</p>
+            <div class="d-flex gap-3">
+                <i class="bi bi-instagram"></i>
+                <i class="bi bi-facebook"></i>
+                <i class="bi bi-twitter"></i>
+                <i class="bi bi-youtube"></i>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-md-between gap-5 w-100 w-md-60 flex-wrap row-gap-5">
+            <div>
+                <h6 class="mb-4">QUICK LINKS</h6>
+                <div class="d-flex flex-column gap-3">
+                    <a href="#" class="text-gray-400 text-decoration-none">Shipping</a>
+                    <a href="#" class="text-gray-400 text-decoration-none">Terms and conditions</a>
+                    <a href="#" class="text-gray-400 text-decoration-none">Return policy</a>
+                    <a href="faqs-page.html" class="text-gray-400 text-decoration-none">FAQs</a>
+                    <a href="#" class="text-gray-400 text-decoration-none">Cookies</a>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <h6 class="mb-4">TITLE</h6>
+                <div class="text-gray-400 d-flex flex-column gap-3">
+                    <a href="customer-support.html" class="text-gray-400 text-decoration-none">Contact</a>
+                    <a href="about-us.html" class="text-gray-400 text-decoration-none">About us</a>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <h6>SUBSCRIBE TO NEWSLETTER TO GET NEWS FIRST</h6>
+                <div class="mt-5 bg-white input-group px-3 rounded-1 m-auto">
+                    <input type="text" class="form-control px-2 py-4 border-0" placeholder="Email address">
+                    <div class="input-group-append d-flex flex-column justify-content-center align-items-center">
+                        <button class="fw-bold bg-green-700 px-3 px-sm-4 py-3 text-white rounded-1">
+                            <span>SUBSCRIBE</span>
+                            <span class="ps-1"><i class="bi bi-arrow-right"></i></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="email d-flex align-items-center gap-2 mt-4 mb-4">
+                    <i class="bi bi-envelope text-white"></i>
+                    <p class="mb-0">email@website.com</p>
+                </div>
+                <div class="mt-4">
+                    <h6>PAYMENT OPTIONS</h6>
+                    <div class="px-4 py-3 bg-gray-800 text-white w-180 d-flex gap-3 align-items-center mb-2 mt-3 rounded">
+                        <img src="./assets/img/design/google-play.png" alt="" class="w-20 h-20"/>
+                        <div>
+                            <p class="m-0">Get it now</p>
+                            <p class="m-0">Google Play</p>
+                        </div>
+                    </div>
+                    <div>
+                        <img class="payment-option" src="./assets/img/design/badge1.png" alt=""/>
+                        <img src="./assets/img/design/badge2.png" alt=""/>
+                        <img src="./assets/img/design/badge3.png" alt=""/>
+                        <img src="./assets/img/design/badge4.png" alt=""/>
+                        <img src="./assets/img/design/badge5.png" alt=""/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <p class="text-gray-400 mb-0 text-center">Name © 2023</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,706 @@
+@use '../util' as u;
+@use 'sass:math';
+
+$box-shadow: 10px 0px 25px rgba(60, 50, 50, 0.25),
+5px 15px 50px rgba(0, 0, 0, 0.25);
+
+$theme-colors: (
+        'primary': #484646,
+        'primary-50': #FFF3EB,
+        'primary-100': #FFE7D6,
+        'primary-300': #F8F8F8,
+        'primary-200': #FFCEAD,
+        'primary-500': #FA8232,
+        'dark-secondary': #282525,
+        'secondary': #6a6363,
+        'dark': #222222,
+        'white': #fff,
+        'success-50': #EAF7E9,
+        'success-100': #D5F0D3,
+        'success-500': #2DB224,
+        'light': #f5f5f5,
+        'light-blue': #EAF9DE,
+        'muted': #b4b4b4,
+        'danger': #e31318,
+        'orange': #e36709,
+        'pale': #efefef,
+        'dark-blue': #252b42,
+        'checkout': #151515,
+        'green': #6fa347,
+        'green-700': #6B8E4D,
+        'gray-100': #E4E7E9,
+        'danger-500': #EE5858,
+        'danger-600': #BE4646,
+        'grayish': #aeadad,
+        'secondary-50': #EAF6FE,
+        'secondary-100': #D5EDFD,
+        'secondary-500': #2DA5F3,
+        'secondary-300': #81C9F8,
+        'secondary-800': #124261,
+        'secondary-700': #1B6392,
+        'secondary-900': #092131,
+        'gray-700': #475156,
+        'gray-200': #D9D9D9,
+        'gray-600-bold': #273C4A,
+        'gray-400': #929FA5,
+        'gray-500': #F2F4F5,
+        'gray-800': #303639,
+        'warning-100': #FBF4CE,
+        'warning-200': #F7E99E,
+        'warning-300': #F3DE6D,
+        'warning-50': #FDFAE7,
+        'gray-600': #5F6C72,
+        'gray-900': #191C1F,
+        'gray-300': #B1B5B8,
+        'gray-800-light': #77878F,
+        'gray-200-light': #E0E1E1,
+        'warning-500': #EBC80C,
+        'warning-400': #EFD33D,
+        'warning-900': #2F2802,
+);
+
+$pagination-focus-color: #fff;
+$pagination-focus-bg: #b4b4b4;
+$pagination-focus-box-shadow: 0;
+$pagination-focus-outline: 0;
+$pagination-color: #484646;
+$pagination-active-color: #fff;
+$pagination-active-bg: #6a6363;
+$pagination-active-border-color: transparent;
+
+$form-range-thumb-bg: #6a6363;
+$form-range-thumb-focus-box-shadow: 0 0 0 1px #252b42, #252b42;
+
+$accordion-button-active-bg: transparent;
+$accordion-button-active-color: #6a6363;
+$accordion-button-focus-border-color: #6a6363;
+$accordion-button-focus-box-shadow: 0;
+$accordion-border-radius: 15px;
+//$font-family-sans-serif: u.$font;
+
+$form-check-input-checked-bg-image: url("data:image/svg+xml,%3Csvg width='18' height='13' viewBox='0 0 18 13' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.00023 10.172L16.1922 0.979004L17.6072 2.393L7.00023 13L0.63623 6.636L2.05023 5.222L7.00023 10.172Z' fill='black'/%3E%3C/svg%3E%0A");
+
+@import '~bootstrap/scss/bootstrap';
+
+$utilities: map-merge(
+                $utilities,
+                (
+                        'font-size':
+                        map-merge(
+                                        map-get($utilities, 'font-size'),
+                                        (
+                                                responsive: true,
+                                        )
+                        ),
+                ),
+                (
+                        'color':
+                        map-merge(
+                                        map-get($utilities, 'color'),
+                                        (
+                                                responsive: true,
+                                        )
+                        ),
+                ),
+                (
+                        'border-color':
+                        map-merge(
+                                        map-get($utilities, 'border-color'),
+                                        (
+                                                responsive: true,
+                                        )
+                        ),
+                ),
+                (
+                        'width':
+                        map-merge(
+                                        map-get($utilities, 'width'),
+                                        (
+                                                responsive: true,
+                                        )
+                        ),
+                ),
+                (
+                        'position':
+                        map-merge(
+                                        map-get($utilities, 'position'),
+                                        (
+                                                responsive: true,
+                                        )
+                        ),
+                )
+);
+
+$sizes: (
+        2: 2%,
+        5: 5%,
+        7: 7%,
+        10: 10%,
+        15: 15%,
+        20: 20%,
+        21: 21%,
+        25: 25%,
+        30: 30%,
+        35: 35%,
+        37: 37%,
+        40: 40%,
+        43: 43%,
+        45: 45%,
+        47: 47%,
+        49: 49%,
+        50: 50%,
+        55: 55%,
+        58: 58%,
+        60: 60%,
+        65: 65%,
+        67: 67%,
+        70: 70%,
+        75: 75%,
+        79: 79%,
+        85: 85%,
+        90: 90%,
+        100: 100%,
+        11: 11px,
+        19: 19px,
+        24: 24px,
+        41: 41px,
+        48: 48px,
+        51: 51px,
+        64: 64px,
+        71: 71px,
+        76: 76px,
+        80: 80px,
+        96: 96px,
+        102: 102px,
+        110: 100px,
+        105: 105px,
+        130: 130px,
+        140: 140px,
+        155: 155px,
+        160: 160px,
+        170: 170px,
+        180: 180px,
+        190: 190px,
+        200: 200px,
+        205: 205px,
+        210: 210px,
+        220: 220px,
+        236: 236px,
+        225: 225px,
+        235: 235px,
+        240: 240px,
+        250: 250px,
+        260: 260px,
+        270: 270px,
+        280: 280px,
+        300: 300px,
+        305: 305px,
+        310: 310px,
+        315: 315px,
+        320: 320px,
+        325: 325px,
+        330: 330px,
+        350: 350px,
+        360: 360px,
+        380: 380px,
+        400: 400px,
+        415: 415px,
+        420: 420px,
+        425: 425px,
+        450: 450px,
+        475: 475px,
+        520: 520px,
+        540: 540px,
+        650: 650px,
+        1000: 1000px,
+        1160: 1160px,
+        auto: auto,
+);
+
+$fonts: (
+        4: 1.5rem,
+        5: 1.25rem,
+        6: 1rem,
+        7: u.rem(14),
+        8: u.rem(12),
+        9: u.rem(10),
+        10: u.rem(8),
+);
+
+$positions: (
+        relative: relative,
+        absolute: absolute,
+        static: static,
+        fixed: fixed,
+);
+
+$utilities: (
+        'width': (
+                responsive: true,
+                property: width,
+                class: w,
+                values: $sizes,
+        ),
+        'height': (
+                responsive: true,
+                property: height,
+                class: h,
+                values: $sizes,
+        ),
+        'position': (
+                responsive: true,
+                property: position,
+                class: position,
+                values: $positions,
+        ),
+        'end': (
+                property: right,
+                class: end,
+                responsive: true,
+                values: (
+                        n5: -5%,
+                        n10: -10%,
+                        1: 1%,
+                        2: 2%,
+                        5: 5%,
+                        10: 10%,
+                        15: 15%,
+                        25: 25%,
+                ),
+        ),
+        'top': (
+                property: top,
+                class: top,
+                responsive: true,
+                values: (
+                        n5: -5%,
+                        n10: -10%,
+                        1: 1%,
+                        2: 2%,
+                        5: 5%,
+                        10: 10%,
+                        15: 15%,
+                        25: 25%,
+                ),
+        ),
+        'bottom': (
+                property: bottom,
+                class: bottom,
+                responsive: true,
+                values: (
+                        1: 1%,
+                        2: 2%,
+                        5: 5%,
+                        10: 10%,
+                        15: 15%,
+                        20: 20%,
+                        25: 25%,
+                ),
+        ),
+        'start': (
+                property: left,
+                class: start,
+                responsive: true,
+                values: (
+                        25: 25%,
+                        10: 10%,
+                        15: 15%,
+                        n10: -10%,
+                        n15: -15%,
+                        n25: -25%,
+                        n30: -30%,
+                        n35: -35%,
+                        n40: -40%,
+                        n45: -45%,
+                        n55: -55%,
+                        n65: -65%,
+                        n150px: -150px,
+                        n200: -200%,
+                ),
+        ),
+        'mt': (
+                property: margin-top,
+                class: mt,
+                responsive: true,
+                values: (
+                        7: u.rem(70),
+                        8: u.rem(80),
+                        9: u.rem(90),
+                        10: u.rem(100),
+                        11: u.rem(110),
+                        12: u.rem(120),
+                        15: u.rem(150),
+                        n6: u.rem(-60),
+                        n7: u.rem(-70),
+                        n8: u.rem(-80),
+                        n9: u.rem(-90),
+                        n10: u.rem(-100),
+                        n11: u.rem(-110),
+                        n12: u.rem(-120),
+                        n15: u.rem(-150),
+                        n17: u.rem(-170),
+                        n20: u.rem(-200),
+                ),
+        ),
+        'me': (
+                property: margin-right,
+                class: me,
+                responsive: true,
+                values: (
+                        7: u.rem(70),
+                        8: u.rem(80),
+                        9: u.rem(90),
+                        10: u.rem(100),
+                        11: u.rem(110),
+                        12: u.rem(120),
+                        15: u.rem(150),
+                        n6: u.rem(-60),
+                        n7: u.rem(-70),
+                        n8: u.rem(-80),
+                        n9: u.rem(-90),
+                        n10: u.rem(-100),
+                        n11: u.rem(-110),
+                        n12: u.rem(-120),
+                        n15: u.rem(-150),
+                        n17: u.rem(-170),
+                        n20: u.rem(-200),
+                ),
+        ),
+        'ms': (
+                property: margin-left,
+                class: ms,
+                responsive: true,
+                values: (
+                        7: u.rem(70),
+                        8: u.rem(80),
+                        9: u.rem(90),
+                        10: u.rem(100),
+                        11: u.rem(110),
+                        12: u.rem(120),
+                        15: u.rem(150),
+                        n6: u.rem(-60),
+                        n7: u.rem(-70),
+                        n8: u.rem(-80),
+                        n9: u.rem(-90),
+                        n10: u.rem(-100),
+                        n11: u.rem(-110),
+                        n12: u.rem(-120),
+                        n15: u.rem(-150),
+                        n17: u.rem(-170),
+                        n20: u.rem(-200),
+                ),
+        ),
+        'mb': (
+                property: margin-bottom,
+                class: mb,
+                responsive: true,
+                values: (
+                        7: u.rem(70),
+                        8: u.rem(80),
+                        9: u.rem(90),
+                        10: u.rem(100),
+                        11: u.rem(110),
+                        12: u.rem(120),
+                        14: u.rem(140),
+                        n1: u.rem(-10),
+                        n2: u.rem(-20),
+                        n3: u.rem(-30),
+                        n4: u.rem(-40),
+                        n5: u.rem(-50),
+                        n6: u.rem(-60),
+                        n7: u.rem(-70),
+                        n8: u.rem(-80),
+                        n9: u.rem(-90),
+                        n10: u.rem(-100),
+                ),
+        ),
+        'px': (
+                property: padding-inline,
+                class: px,
+                responsive: true,
+                values: (
+                        7: u.rem(70),
+                        8: u.rem(80),
+                        9: u.rem(90),
+                        10: u.rem(100),
+                        11: u.rem(110),
+                        12: u.rem(120),
+                        15: u.rem(150),
+                        n6: u.rem(-60),
+                        n7: u.rem(-70),
+                        n8: u.rem(-80),
+                        n9: u.rem(-90),
+                        n10: u.rem(-100),
+                        n11: u.rem(-110),
+                        n12: u.rem(-120),
+                        n15: u.rem(-150),
+                        n17: u.rem(-170),
+                        n20: u.rem(-200),
+                ),
+        ),
+        'pt': (
+                property: padding-top,
+                class: pt,
+                responsive: true,
+                values: (
+                        7: u.rem(70),
+                        8: u.rem(80),
+                        9: u.rem(90),
+                        10: u.rem(100),
+                        11: u.rem(110),
+                        12: u.rem(120),
+                        15: u.rem(150),
+                        16: u.rem(160),
+                        17: u.rem(170),
+                        18: u.rem(180),
+                        19: u.rem(190),
+                        20: u.rem(200),
+                        21: u.rem(210),
+                        n6: u.rem(-60),
+                        n7: u.rem(-70),
+                        n8: u.rem(-80),
+                        n9: u.rem(-90),
+                        n10: u.rem(-100),
+                        n11: u.rem(-110),
+                        n12: u.rem(-120),
+                        n15: u.rem(-150),
+                        n17: u.rem(-170),
+                        n20: u.rem(-200),
+                ),
+        ),
+        'pb': (
+                property: padding-bottom,
+                class: pb,
+                responsive: true,
+                values: (
+                        7: u.rem(70),
+                        8: u.rem(80),
+                        9: u.rem(90),
+                        10: u.rem(100),
+                        11: u.rem(110),
+                        12: u.rem(120),
+                        15: u.rem(150),
+                        16: u.rem(160),
+                        17: u.rem(170),
+                        18: u.rem(180),
+                        19: u.rem(190),
+                        20: u.rem(200),
+                        21: u.rem(210),
+                        n6: u.rem(-60),
+                        n7: u.rem(-70),
+                        n8: u.rem(-80),
+                        n9: u.rem(-90),
+                        n10: u.rem(-100),
+                        n11: u.rem(-110),
+                        n12: u.rem(-120),
+                        n15: u.rem(-150),
+                        n17: u.rem(-170),
+                        n20: u.rem(-200),
+                ),
+        ),
+        'gap': (
+                property: gap,
+                class: gap,
+                responsive: true,
+                values: (
+                        10: u.rem(100),
+                ),
+        ),
+        'fs': (
+                property: font-size,
+                class: fs,
+                responsive: true,
+                values: $fonts,
+        ),
+);
+
+@import 'bootstrap/scss/bootstrap';
+
+@mixin switch($res: 'sm') {
+  $index: 1rem;
+  $mainVal: 1rem;
+
+  @if $res == 'md' {
+    $index: 2rem;
+    $mainVal: 1.5rem;
+  } @else if $res == 'lg' {
+    $index: 3rem;
+    $mainVal: 2rem;
+  } @else if $res == 'xl' {
+    $index: 4rem;
+    $mainVal: 2.5rem;
+  }
+
+  margin-bottom: math.div($index, 2);
+
+  .form-check-input {
+    height: $mainVal;
+    width: calc(#{$index} + 0.75rem);
+    border-radius: $mainVal * 2;
+  }
+}
+
+.form-check-input {
+  clear: left;
+}
+
+.form-switch.form-switch-sm {
+  @include switch();
+}
+
+.form-switch.form-switch-md {
+  @include switch('md');
+}
+
+.form-switch.form-switch-lg {
+  @include switch('lg');
+}
+
+.form-switch.form-switch-xl {
+  @include switch('xl');
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: '>';
+  color: #fff;
+}
+
+.btn-white {
+  &:hover {
+    background-color: #111010 !important;
+    color: #fff !important;
+  }
+}
+
+.form-floating {
+  .form-control {
+    min-height: u.rem(45);
+    height: u.rem(45);
+    max-height: 45px;
+    border: 1px solid rgba(130, 130, 130, 0.4);
+  }
+}
+
+.form-floating > label {
+  top: -6px;
+}
+
+.checkbox-lg .form-check-input {
+  top: 0.8rem;
+  scale: 1.4;
+}
+
+select:invalid {
+  color: #616161 !important;
+  font-size: 1rem;
+}
+
+a {
+  &.active {
+    position: relative;
+    padding-bottom: 5px;
+    color: #616161 !important;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: #616161;
+    }
+  }
+}
+
+.border-dashed {
+  border-style: dashed !important;
+}
+
+.list-style-disc {
+  list-style: disc;
+}
+
+.flex-1 {
+  flex: 1 !important;
+}
+
+.flex-2 {
+  flex: 2 !important;
+}
+
+.flex-3 {
+  flex: 3 !important;
+}
+
+.form-control-lg {
+  font-size: u.rem(16);
+  padding-block: u.rem(10) !important;
+}
+
+textarea:focus,
+input[type='text']:focus,
+input[type='password']:focus,
+input[type='datetime']:focus,
+input[type='datetime-local']:focus,
+input[type='date']:focus,
+input[type='month']:focus,
+input[type='time']:focus,
+input[type='week']:focus,
+input[type='number']:focus,
+input[type='email']:focus,
+input[type='url']:focus,
+input[type='search']:focus,
+input[type='tel']:focus,
+input[type='color']:focus,
+input[type='checkbox']:focus,
+input[type='radio']:focus,
+textarea.form-control:focus,
+.uneditable-input:focus,
+.form-select:focus {
+  //border-color: rgba(#111010, 0.75);
+  box-shadow: 0 0 1px rgba(#111010, 0.25);
+  outline: 0 none;
+}
+
+.accordion-item {
+  margin-bottom: u.rem(16);
+  border-radius: u.rem(5) !important;
+  border-color: #282525;
+
+  .accordion-button {
+    border-radius: u.rem(5) !important;
+    border: 1px solid #282828;
+  }
+
+  border: none;
+
+  .accordion-body {
+    padding-inline: 0;
+    background: #f5f5f5 !important;
+  }
+}
+
+[data-radio='checkout'] {
+  width: u.rem(24);
+  height: u.rem(24);
+  border-color: #484646;
+  border-width: 2px;
+
+  &:checked {
+    background-color: #616161;
+    border-color: #616161;
+    background-image: url("data:image/svg+xml,%3Csvg width='19' height='18' viewBox='0 0 19 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M18.5 9C18.5 13.6693 14.4964 17.5 9.5 17.5C4.50362 17.5 0.5 13.6693 0.5 9C0.5 4.33071 4.50362 0.5 9.5 0.5C14.4964 0.5 18.5 4.33071 18.5 9Z' stroke='white'/%3E%3C/svg%3E%0A");
+  }
+}
+
+[data-checkbox='checkbox-1'] {
+  width: u.rem(24);
+  height: u.rem(24);
+  border-radius: u.rem(7);
+
+  &:checked {
+    background-color: #616161;
+    background-image: url("data:image/svg+xml,%3Csvg width='17' height='12' viewBox='0 0 17 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6.37487 9.17694L15.5826 0L17 1.41153L6.37487 12L0 5.64712L1.41642 4.23559L6.37487 9.17694Z' fill='white'/%3E%3C/svg%3E%0A");
+  }
+}

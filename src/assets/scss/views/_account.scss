@@ -1,0 +1,38 @@
+.account-navbar:hover {
+  background-color: #6B8E4D;
+  span {
+    color: white !important;
+  }
+}
+
+.visa-card  {
+  background: linear-gradient(90deg, rgba(27,99,146,1) 100%, rgba(18,66,97,1) 100%);
+}
+
+.master-card {
+  background: linear-gradient(90deg, rgba(45,178,36,1) 100%, rgba(36,142,29,1) 100%);
+}
+
+.card-actions {
+  left: 35%;
+  top: 68px;
+}
+
+@media only screen and (max-width: 765px) {
+  .card-actions {
+    left: 19%;
+    top: 170px;
+  }
+}
+
+@media only screen and (max-width: 475px) {
+  .orders-table{
+    font-size: 12px;
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  .orders-table{
+    font-size: 9px;
+  }
+}

@@ -1,0 +1,91 @@
+@forward 'globals';
+@forward 'layout';
+@forward 'components';
+@forward 'lib';
+@forward "views";
+@use './util' as u;
+
+body {
+  margin: 0;
+  line-height: normal;
+}
+
+
+.navbar {
+  height: 100px;
+}
+
+.paths-history {
+  background-color: #F8F8F8;
+  height: 70px;
+}
+
+:root {
+  /* fonts */
+  --body-tiny-600: "Public Sans";
+
+  /* font sizes */
+  --body-tiny-600-size: 12px;
+  --body-small-400-size: 14px;
+  --body-large-400-size: 18px;
+
+  /* Colors */
+  --gray-50: #f2f4f5;
+  --gray-00: #fff;
+  --color-darkslategray: #183319;
+  --gray-500: #77878f;
+  --gray-900: #191d1f;
+
+  /* Gaps */
+  --gap-5xl: 24px;
+  --gap-5xs: 8px;
+
+  /* Paddings */
+  --padding-xl: 20px;
+  --padding-281xl: 300px;
+  --padding-sm: 14px;
+
+  /* Border radiuses */
+  --br-11xs: 2px;
+}
+
+.lh-24 {
+  line-height: 24px !important;
+}
+
+.bw-3 {
+  border-width: 3px !important;
+}
+
+.bw-2 {
+  border-width: 2px !important;
+}
+
+
+.fs-12 {
+  font-size: 12px !important;
+}
+
+button {
+  text-wrap: nowrap;
+}
+
+.basket-product-count {
+  background: white;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  padding: 10px;
+  border: 2px solid;
+  top: -4px;
+  left: 10px;
+}
+
+.green-bg-on-hover:hover {
+  background-color: #6B8E4D;
+  color: white !important;
+
+  span {
+    color: white !important;
+  }
+}

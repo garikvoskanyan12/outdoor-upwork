@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>For OutDoor</title>
+    <link rel="stylesheet" href=
+            "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"/>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<header x-data="{ toggleBlackFridayPopup: true }">
+   <div class="py-2 py-md-4 header d-flex align-items-center">
+        <div class="container d-flex justify-content-between align-items-center gap-3">
+            <div class="logo w-35 w-sm-auto">
+                <a
+                        class="me-auto"
+                        href="/"
+                        data-element="logo"
+                >
+                    <img
+                            src="assets/img/design/logo.svg"
+                            alt=""
+                    >
+                </a>
+            </div>
+
+            <div class="input-group w-50 d-none d-md-flex">
+                <input type="text" class="form-control p-2 border-0" placeholder="Search for anything..."
+                       aria-label="Username" aria-describedby="basic-addon1">
+                <span class="input-group-text bg-white border-0">
+                 <i class="bi bi-search"></i>
+            </span>
+            </div>
+
+            <div class="d-flex gap-2 align-items-centers">
+                <div class="basket-dropdown dropdown w-20 w-sm-auto" x-data="cart">
+                    <button class="person-dropdown-toggle-btn position-relative" type="button">
+                        <img src="assets/img/design/shopping-cart.svg" alt="">
+                        <span class="basket-product-count position-absolute align-items-center d-flex justify-content-center flex-column" x-text="products.length"></span>
+                    </button>
+                    <div class="basket-dropdown-menu dropdown-menu shadow-sm w-auto w-320 px-3 py-4">
+                        <div x-show="products.length > 0">
+                            <div class="fw-medium">Shopping Cart <span class="text-secondary" x-text="'(' + products.length + ')'"></span></div>
+
+                            <div class="mt-4 py-4 border-bottom border-top">
+                                <template x-for="product in products">
+                                    <div class="d-flex mt-3">
+                                        <div class="border">
+                                            <img src="assets/img/design/t-short.png" alt="">
+                                        </div>
+                                        <div class="mt-2 ms-2">
+                                            <div class="lh-24"><span x-text="product.title"></span></div>
+                                            <div class="mt-4 fw-medium fs-7"><span x-text="product.price"></span></div>
+                                        </div>
+
+                                        <div class="d-flex flex-column justify-content-center">
+                                            <button @click="deleteItem(product.id)" class="fs-3 text-secondary"><i
+                                                    class="bi bi-x"></i></button>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+
+                            <div class="mt-4 d-flex justify-content-between">
+                                <div>Value of products:</div>
+                                <div>$2038.00 USD</div>
+                            </div>
+
+                            <div class="mt-2 d-flex justify-content-between text-green-700">
+                                <div>Shipping:</div>
+                                <div>0.00 USD</div>
+                            </div>
+
+                            <div class="mt-4 d-flex justify-content-between">
+                                <div class="fs-5 text-secondary">Sub-Total:</div>
+                                <div class="fs-5">$2038.00 USD</div>
+                            </div>
+
+                            <div class="mt-4">
+                                <a href="check-out.html"
+                                   class="d-block fw-bold bg-green-700 text-white w-100 py-3 text-center">
+                                    <span>CHECKOUT NOW</span>
+                                    <span class="ps-1"><i class="bi bi-arrow-right"></i></span>
+                                </a>
+                            </div>
+
+                            <div class="mt-3">
+                                <a href="shopping-card.html"
+                                   class="d-block fw-bold bg-white w-100 py-3 text-center text-green-700 border-green-700 px-3 py-3 border">
+                                    <span>VIEW CART</span>
+                                    <span class="ps-1"><i class="bi bi-arrow-right"></i></span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div x-show="products.length < 1">
+                            Product not found
+                        </div>
+                    </div>
+                </div>
+
+                <a href="wishlist.html" class="d-block heart d-flex w-20 w-sm-auto justify-content-center flex-column">
+                    <img src="assets/img/design/heart.svg" alt="">
+                </a>
+
+                <div class="person-dropdown dropdown w-20 w-sm-auto">
+                    <button class="person-dropdown-toggle-btn" type="button">
+                        <img src="assets/img/design/user.svg" alt="">
+                    </button>
+                    <div class="person-dropdown-menu dropdown-menu shadow-sm w-auto w-280 px-3 py-4">
+                        <div class="container-md">
+                            <div class="text-center fw-medium">Sign in to your account</div>
+
+                            <div class="mt-4">
+                                <div>
+                                    <div>
+                                        <label for="email" class="fs-7">Email Address</label>
+                                    </div>
+                                    <div class="input-group mt-2">
+                                        <input type="text" class="form-control" id="email">
+                                    </div>
+                                </div>
+
+                                <div class="mt-4" x-data="{ eyeActive: false }">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <label for="password" class="fs-7">Password</label>
+                                        <a href="forget-password.html" class="text-secondary forget-password-link fs-7">Forget
+                                            Password</a>
+                                    </div>
+                                    <div class="input-group mt-2">
+                                        <input :type="eyeActive ? 'text': 'password'" class="form-control"
+                                               id="password">
+                                        <button @click="eyeActive = !eyeActive"
+                                                class="input-group-text bg-white border">
+                                            <i class="bi" :class="eyeActive ? 'bi-eye': 'bi-eye-slash'"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4">
+                                    <a href="dashboard.html"
+                                       class="d-block fw-bold bg-green-700 text-white w-100 py-3 text-center">
+                                        <span>LOGIN</span>
+                                        <span class="ps-1"><i class="bi bi-arrow-right"></i></span>
+                                    </a>
+                                </div>
+
+                                <div class="mt-4 d-flex align-items-center gap-3">
+                                    <div class="border w-50"></div>
+                                    <div class="bg-white  text-secondary fs-7">or</div>
+                                    <div class="border w-50"></div>
+                                </div>
+
+
+                                <div class="mt-4">
+                                    <div class="d-flex align-items-center justify-content-center gap-3">
+                                        <button class="w-30 bg-white py-3 text-center border rounded">
+                                            <img src="assets/img/design/apple.svg" alt="">
+                                        </button>
+
+                                        <button class="w-30 bg-white py-3 text-center border rounded">
+                                            <img src="assets/img/design/google.svg" alt="">
+                                        </button>
+
+                                        <button class="w-30 bg-white py-3 text-center border rounded">
+                                            <img src="assets/img/design/facebook.svg" alt="">
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 d-flex align-items-center gap-3">
+                                    <div class="border w-45"></div>
+                                    <div class="bg-white  text-secondary fs-7 text-nowrap">Don’t have account</div>
+                                    <div class="border w-45"></div>
+                                </div>
+
+                                <div class="mt-3">
+                                    <a href="sign-up.html"
+                                       class="d-block fw-bold bg-white w-100 py-3 text-center text-green-700 border-green-700 px-3 py-3 border">
+                                        <span>CREATE ACCOUNT</span>
+                                        <span class="ps-1"><i class="bi bi-arrow-right"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="burger  m-0">
+                    <button
+                            id="menu-btn"
+                            class="burger__btn"
+                    >
+                        <span class="burger__line burger__line-top"></span>
+                        <span class="burger__line burger__line-middle"></span>
+                        <span class="burger__line burger__line-bottom"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="border-1 border-bottom d-none d-md-block">
+        <div class="container navbar d-flex justify-content-between align-content-center">
+            <nav class="d-none d-sm-block">
+                <div class="nav-items d-flex align-items-center gap-3">
+                    <div class="nav-item dropdown has-megamenu">
+                        <button
+                                class="dropdown-toggle fs-7 fs-lg-6 rounded  fw-medium  py-3 px-4"
+                                type="button" id="megaMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false"
+                        >Clothing
+                        </button>
+                        <div class="dropdown-menu dropdown-menu megamenu shadow-sm p-0"
+                             aria-labelledby="megaMenuDropdown"
+                             role="menu"
+                             x-data="megamenu"
+                        >
+                            <div class="container-md">
+                                <div class="row g-3">
+                                    <!-- Menu -->
+                                    <div class="col-12">
+                                        <div class="col-megamenu ps-5 py-2">
+                                            <!-- Tabs -->
+                                            <ul class="nav nav-tabs gap-3 mb-4 border-0">
+                                                <li class="nav-item">
+                                                    <a
+                                                            class="nav-link tab-link tab-link-active category-link fw-medium position-relative fs-6  text-capitalize "
+                                                            aria-current="page"
+                                                            href="#all"
+                                                            @click="selectTab($el)"
+                                                    >All</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a
+                                                            class="nav-link tab-link position-relative category-link fs-6 fw-medium  text-capitalize text-secondary"
+                                                            href="#men"
+                                                            @click="selectTab($el)"
+                                                    >Men</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a
+                                                            class="nav-link tab-link position-relative category-link fs-6 fw-medium text-capitalize text-secondary"
+                                                            href="#women"
+                                                            @click="selectTab($el)"
+                                                            @="($el)"
+                                                    >Women</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a
+                                                            class="nav-link tab-link position-relative category-link fs-6 fw-medium text-capitalize text-secondary"
+                                                            href="#kids"
+                                                            @click="selectTab($el)"
+                                                    >Kids</a>
+                                                </li>
+
+                                                <li class="nav-item">
+                                                    <a
+                                                            class="nav-link tab-link position-relative category-link fs-6 fw-medium text-capitalize text-secondary"
+                                                            href="#other"
+                                                            @click="selectTab($el)"
+                                                    >Other</a>
+                                                </li>
+                                            </ul>
+                                            <!-- Menu Items -->
+                                            <div class="row text-capitalize">
+                                                <div class="col-4">
+                                                    <span class="d-block mb-3 fw-medium text-dark-blue">Clothing</span>
+                                                    <ul class="px-0">
+                                                        <li class="my-3">
+                                                            <a href="#">Jackets and Vests</a>
+                                                        </li>
+                                                        <li class="my-3">
+                                                            <a href="#">Hoodies and Sweaters</a>
+                                                        </li>
+                                                        <li class="my-3">
+                                                            <a href="#">T-Shirts</a>
+                                                        </li>
+                                                        <li class="my-3">
+                                                            <a href="#">Pants</a>
+                                                        </li>
+                                                        <li class="my-3">
+                                                            <a href="#">Shorts</a>
+                                                        </li>
+                                                        <li class="my-3">
+                                                            <a href="#">Dresses and Skirts</a>
+                                                        </li>
+                                                        <li class="my-3">
+                                                            <a href="#">Caps</a>
+                                                        </li>
+                                                        <li class="my-3">
+                                                            <a href="#">Socks</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div>
+                                                        <span class="d-block mb-3 fw-medium text-dark-blue">Equipment</span>
+                                                        <ul class="px-0 mb-4">
+                                                            <li class="my-3">
+                                                                <a href="#">Backpacks and Bags</a>
+                                                            </li>
+                                                            <li class="my-3">
+                                                                <a href="#">Tents</a>
+                                                            </li>
+                                                            <li class="my-3">
+                                                                <a href="#">Mats</a>
+                                                            </li>
+                                                            <li class="my-3">
+                                                                <a href="#">Sleeping Bags</a>
+                                                            </li>
+                                                            <li class="my-3">
+                                                                <a href="#">Trekking Poles</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div>
+                                                        <span class="d-block mb-3 fw-medium text-dark-blue">Accessories</span>
+                                                        <ul class="px-0">
+                                                            <li>
+                                                                <a href="#">Sandals</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <span class="d-block mb-3 fw-medium text-dark-blue">By activity</span>
+                                                    <ul class="px-0">
+                                                        <li class="my-3">
+                                                            <a href="#">Camping</a>
+                                                        </li>
+                                                        <li class="my-3">
+                                                            <a href="#">Active Movement</a>
+                                                        </li>
+                                                        <li class="my-3">
+                                                            <a href="#">Hiking and Trekking</a>
+                                                        </li>
+                                                        <li class="my-3">
+                                                            <a href="#">Winter Sports</a>
+                                                        </li>
+                                                        <li class="my-3">
+                                                            <a href="#">Travel</a>
+                                                        </li>
+                                                        <li class="my-3">
+                                                            <a href="#">Run and Bike</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="shop.html" class="text-black fw-medium">Outdoor</a>
+                    <a href="shop.html" class="text-black fw-medium">Ski</a>
+                    <a href="shop.html" class="text-black fw-medium">All sports</a>
+                    <a href="shop.html" class="text-black fw-medium">Brands</a>
+                    <a href="shop.html" class="text-black fw-medium">Outlet</a>
+                </div>
+            </nav>
+
+            <div class="email d-none d-sm-flex align-items-center gap-2">
+                <div class="email-icon">
+                    <img src="assets/img/design/mail.svg" alt="">
+                </div>
+
+                <div>email@website.com</div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<div class="mobile-menu">
+    <nav class="mobile-menu__nav">
+        <ul class="mobile-menu__list px-4">
+            <li class="mobile-menu__item">
+                <a
+                        href="shop.html"
+                        class="mobile-menu__link text-white link-underline-0"
+                >Clothing</a>
+            </li>
+            <li class="mobile-menu__item">
+                <a
+                        href="shop.html"
+                        class="mobile-menu__link text-white link-underline-0"
+                >Outdoor</a>
+            </li>
+            <li class="mobile-menu__item">
+                <a
+                        href="shop.html"
+                        class="mobile-menu__link text-white link-underline-0"
+                >Ski</a>
+            </li>
+            <li class="mobile-menu__item">
+                <a
+                        href="shop.html"
+                        class="mobile-menu__link text-white link-underline-0"
+                >All sports</a>
+            </li>
+            <li class="mobile-menu__item">
+                <a
+                        href="shop.html"
+                        class="mobile-menu__link text-white link-underline-0"
+                >Brands</a>
+            </li>
+
+            <li class="mobile-menu__item">
+                <a
+                        href="shop.html"
+                        class="mobile-menu__link text-white link-underline-0"
+                >Outlet</a>
+            </li>
+
+            <li class="mobile-menu__item">
+                <div class="input-group">
+                    <input type="text" class="form-control p-2 border-0" placeholder="Search for anything..."
+                           aria-label="Username" aria-describedby="basic-addon1">
+                    <span class="input-group-text bg-white border-0">
+                 <i class="bi bi-search"></i>
+            </span>
+                </div>
+            </li>
+
+        </ul>
+
+
+        <div class="mt-5 text-center text-white">
+            email@website.com
+        </div>
+    </nav>
+</div>
+
+<main>
+    <div class="paths-history w-100 d-flex align-items-center">
+        <div class="container">
+            <div class="text-gray-600 fw-normal">
+                <i class="bi bi-house-door"></i>
+                <span>Home</span>
+                <i class="bi bi-chevron-right"></i>
+                <span>Shop</span>
+                <i class="bi bi-chevron-right"></i>
+                <span>Category</span>
+                <i class="bi bi-chevron-right"></i>
+                <span>SubCategory</span>
+                <i class="bi bi-chevron-right"></i>
+                <span class="fw-medium text-black">Product name</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="d-flex mt-4 gap-5 flex-wrap">
+            <div class="product-details-img" x-data="{
+        images: [
+            'https://s3-alpha-sig.figma.com/img/1b91/58da/af8efdcffed6ffe1a694166d2aa0445a?Expires=1714348800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Q~WJqIfGdPnZakH0wUqDOnC~LJpoH3Y1TziIUNzfnYwaYbVojHjdL9nMjNadLBc4gcJmbQPatlfHsGiaaCawsqk22QrmNzBacReZZ8V45KsPhM3g2qyhEdLd~O4908LdzdwJb8F3dBAp-UvA-fsVHemluiDB6cG7UlLQs0dOC-ed2taY6pyf-VxRNebVWaFG0Ip1e8bTyBmDwGywwfRMJVFYkIcDDcKs~A~ehh6sEBl2jww3R~NizHhVWkIjednTvUZtrO8lodoNxOde~jQbtPxUZPaJG~YmGwyzrrdRCT5WRR6P5UD0pM8qR0H4~khDqKPg7L~fJvyb74QPQiPrsA__',
+            'https://s3-alpha-sig.figma.com/img/1b91/58da/af8efdcffed6ffe1a694166d2aa0445a?Expires=1714348800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Q~WJqIfGdPnZakH0wUqDOnC~LJpoH3Y1TziIUNzfnYwaYbVojHjdL9nMjNadLBc4gcJmbQPatlfHsGiaaCawsqk22QrmNzBacReZZ8V45KsPhM3g2qyhEdLd~O4908LdzdwJb8F3dBAp-UvA-fsVHemluiDB6cG7UlLQs0dOC-ed2taY6pyf-VxRNebVWaFG0Ip1e8bTyBmDwGywwfRMJVFYkIcDDcKs~A~ehh6sEBl2jww3R~NizHhVWkIjednTvUZtrO8lodoNxOde~jQbtPxUZPaJG~YmGwyzrrdRCT5WRR6P5UD0pM8qR0H4~khDqKPg7L~fJvyb74QPQiPrsA__',
+            'https://s3-alpha-sig.figma.com/img/1b91/58da/af8efdcffed6ffe1a694166d2aa0445a?Expires=1714348800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Q~WJqIfGdPnZakH0wUqDOnC~LJpoH3Y1TziIUNzfnYwaYbVojHjdL9nMjNadLBc4gcJmbQPatlfHsGiaaCawsqk22QrmNzBacReZZ8V45KsPhM3g2qyhEdLd~O4908LdzdwJb8F3dBAp-UvA-fsVHemluiDB6cG7UlLQs0dOC-ed2taY6pyf-VxRNebVWaFG0Ip1e8bTyBmDwGywwfRMJVFYkIcDDcKs~A~ehh6sEBl2jww3R~NizHhVWkIjednTvUZtrO8lodoNxOde~jQbtPxUZPaJG~YmGwyzrrdRCT5WRR6P5UD0pM8qR0H4~khDqKPg7L~fJvyb74QPQiPrsA__',
+            'https://s3-alpha-sig.figma.com/img/1b91/58da/af8efdcffed6ffe1a694166d2aa0445a?Expires=1714348800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Q~WJqIfGdPnZakH0wUqDOnC~LJpoH3Y1TziIUNzfnYwaYbVojHjdL9nMjNadLBc4gcJmbQPatlfHsGiaaCawsqk22QrmNzBacReZZ8V45KsPhM3g2qyhEdLd~O4908LdzdwJb8F3dBAp-UvA-fsVHemluiDB6cG7UlLQs0dOC-ed2taY6pyf-VxRNebVWaFG0Ip1e8bTyBmDwGywwfRMJVFYkIcDDcKs~A~ehh6sEBl2jww3R~NizHhVWkIjednTvUZtrO8lodoNxOde~jQbtPxUZPaJG~YmGwyzrrdRCT5WRR6P5UD0pM8qR0H4~khDqKPg7L~fJvyb74QPQiPrsA__',
+            'https://s3-alpha-sig.figma.com/img/1b91/58da/af8efdcffed6ffe1a694166d2aa0445a?Expires=1714348800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Q~WJqIfGdPnZakH0wUqDOnC~LJpoH3Y1TziIUNzfnYwaYbVojHjdL9nMjNadLBc4gcJmbQPatlfHsGiaaCawsqk22QrmNzBacReZZ8V45KsPhM3g2qyhEdLd~O4908LdzdwJb8F3dBAp-UvA-fsVHemluiDB6cG7UlLQs0dOC-ed2taY6pyf-VxRNebVWaFG0Ip1e8bTyBmDwGywwfRMJVFYkIcDDcKs~A~ehh6sEBl2jww3R~NizHhVWkIjednTvUZtrO8lodoNxOde~jQbtPxUZPaJG~YmGwyzrrdRCT5WRR6P5UD0pM8qR0H4~khDqKPg7L~fJvyb74QPQiPrsA__',
+            'https://s3-alpha-sig.figma.com/img/1b91/58da/af8efdcffed6ffe1a694166d2aa0445a?Expires=1714348800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Q~WJqIfGdPnZakH0wUqDOnC~LJpoH3Y1TziIUNzfnYwaYbVojHjdL9nMjNadLBc4gcJmbQPatlfHsGiaaCawsqk22QrmNzBacReZZ8V45KsPhM3g2qyhEdLd~O4908LdzdwJb8F3dBAp-UvA-fsVHemluiDB6cG7UlLQs0dOC-ed2taY6pyf-VxRNebVWaFG0Ip1e8bTyBmDwGywwfRMJVFYkIcDDcKs~A~ehh6sEBl2jww3R~NizHhVWkIjednTvUZtrO8lodoNxOde~jQbtPxUZPaJG~YmGwyzrrdRCT5WRR6P5UD0pM8qR0H4~khDqKPg7L~fJvyb74QPQiPrsA__',
+        ],
+        currentIndex: 0,
+        prevImage() {
+            this.currentIndex = (this.currentIndex === 0) ? (this.images.length - 1) : (this.currentIndex - 1);
+            this.slideToCurrentIndex();
+        },
+        nextImage() {
+            this.currentIndex = (this.currentIndex === this.images.length - 1) ? 0 : (this.currentIndex + 1);
+            this.slideToCurrentIndex();
+        },
+        slideToCurrentIndex() {
+            const subImagesContainer = this.$refs.subImages;
+            const imageWidth = subImagesContainer.offsetWidth / this.images.length;
+            const newPosition = this.currentIndex * imageWidth;
+            subImagesContainer.scrollLeft = newPosition;
+        }
+    }">
+                <div class="main-image border">
+                    <img :src="images[currentIndex]" alt="Main Image">
+                </div>
+
+                <div class="sub-images-slider">
+                    <div class="prev bg-green-700 text-white d-flex justify-content-center align-items-center w-7 h-50"
+                         @click="prevImage"><i class="bi bi-arrow-left"></i></div>
+                    <div class="sub-images" x-ref="subImages">
+                        <template x-for="(image, index) in images" :key="index">
+                            <img :src="image" alt="Sub Image" @click="currentIndex = index"
+                                 :class="{ 'active': index === currentIndex }">
+                        </template>
+                    </div>
+                    <div class="next bg-green-700 text-white d-flex justify-content-center align-items-center w-7 h-50"
+                         @click="nextImage"><i class="bi bi-arrow-right"></i></div>
+                </div>
+            </div>
+
+            <div class="w-100 w-xl-45">
+                <div>
+                    <i class="bi bi-star-fill text-primary-500"></i>
+                    <i class="bi bi-star-fill text-primary-500"></i>
+                    <i class="bi bi-star-fill text-primary-500"></i>
+                    <i class="bi bi-star-fill text-primary-500"></i>
+                    <i class="bi bi-star-fill text-primary-500"></i>
+                    <span class="fw-bold mx-2">4.7 Star Rating</span>
+                    <span class="text-gray-600">(21,671 User feedback)</span>
+
+                    <h5 class="mt-3">Et similique velit aut temporibus vitae a perspiciatis sint</h5>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <div>
+                        <span class="text-gray-600">Sku:</span>
+                        <span class="fw-bold">A264671</span>
+
+                        <div class="mt-2">
+                            <span class="text-gray-600">Brand:</span>
+                            <span class="fw-bold">BrandName</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <span class="text-gray-600">Availability:</span>
+                        <span class="text-green-700 fw-bold">In Stock</span>
+                        <div class="mt-2">
+                            <span class="text-gray-600">Category:</span>
+                            <span class="fw-bold">Category</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-3 d-flex align-items-baseline gap-3">
+                    <h4 class="text-secondary-500">$1699</h4>
+                    <h5 class="text-gray-800-light text-decoration-line-through">$1999.00</h5>
+                    <button class="bg-warning-400 p-2 fw-bold">21% OFF</button>
+                </div>
+
+                <hr class="border-1"/>
+
+                <div class="d-flex justify-content-between">
+                    <div class="w-15">
+                        <p>Color</p>
+                        <div class="d-flex gap-3 h-50">
+                            <button class="bg-gray-300 w-50" style="border-radius: 50px"></button>
+                            <button class="bg-gray-200-light w-50" style="border-radius: 50px"></button>
+                        </div>
+                    </div>
+
+                    <div class="w-50">
+                        <p>Size</p>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>XS</option>
+                            <option value="1">L</option>
+                            <option value="2">S</option>
+                            <option value="3">M</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-2 mt-4 justify-content-between flex-wrap row-gap-3">
+                    <div x-data="{ count: 0 }">
+                        <div class="counter border px-4 py-2">
+                            <button @click="count--" class="p-2"><i class="bi bi-dash"></i></button>
+                            <span class="count-value p-3" x-text="count"></span>
+                            <button @click="count++" class="p-2"><i class="bi bi-plus"></i></button>
+                        </div>
+                    </div>
+                    <button class="fw-bold bg-green-700 text-white px-5 py-2">ADD TO CARD <i class="bi bi-cart"></i>
+                    </button>
+                    <button class="border border-green-700 px-4 py-2">BUY NOW</button>
+                </div>
+
+                <div class="mt-3 d-flex align-items-center justify-content-between">
+                    <div class="d-flex gap-3 align-items-center flex-wrap">
+                        <span class="text-gray-700 ml-3"><img
+                                src="./assets/img/design/heart.png"/> Add to Wishlist</span>
+                        <span class="text-gray-700">
+                        <img src="./assets/img/design/compare.png"/>
+                        Add to Compare</span>
+                    </div>
+
+                    <div>
+                        <span class="text-gray-700">Share product:</span>
+                        <img src="./assets/img/design/Copy.png" class="m-lg-1"/>
+                        <img src="./assets/img/design/Facebook.png" class="m-lg-1"/>
+                        <img src="./assets/img/design/Twitter.png" class="m-lg-1"/>
+                        <img src="./assets/img/design/Pinterest.png" class="m-lg-1"/>
+                    </div>
+                </div>
+
+                <div class="mt-3 border-2">
+                    <h6>100% Guarantee Safe Checkout</h6>
+                    <img src="./assets/img/design/payments.png" alt=""/>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <div class="d-flex align-items-center gap-3">
+                <div class="border w-50"></div>
+                <img src="./assets/img/design/detail.png" alt=""/>
+                <div class="border w-50"></div>
+            </div>
+
+            <h6 class="text-center mt-3 fw-medium">FEATURES</h6>
+
+            <div class="d-flex justify-content-evenly mt-5 flex-wrap">
+                <div class="text-center">
+                    <img src="./assets/img/design/feature-frame1.png" alt=""/>
+                    <p class="text-gray-600 mt-2">Lorem ipsum dolor</p>
+                </div>
+
+                <div class="text-center">
+                    <img src="./assets/img/design/feature-frame2.png" alt=""/>
+                    <p class="text-gray-600 mt-2">Lorem ipsum dolor</p>
+                </div>
+
+                <div class="text-center">
+                    <img src="./assets/img/design/feature-frame3.png" alt=""/>
+                    <p class="text-gray-600 mt-2">Lorem ipsum dolor</p>
+                </div>
+
+                <div class="text-center">
+                    <img src="./assets/img/design/feature-frame4.png" alt=""/>
+                    <p class="text-gray-600 mt-2">Lorem ipsum dolor</p>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="d-flex align-items-center gap-3 mt-4">
+                <div class="border w-50"></div>
+                <img src="./assets/img/design/detail.png" alt=""/>
+                <div class="border w-50"></div>
+            </div>
+
+            <h6 class="text-center mt-3 fw-medium">MATERIAL INFORMATION & FEATURES</h6>
+
+            <div class="mt-5">
+                <div class="d-flex gap-3 flex-wrap flex-xl-nowrap row-gap-5">
+                    <div>
+                        <div class="d-flex gap-2">
+                            <p class="w-20 text-end">Suitable for:</p>
+                            <p class="text-gray-600 w-55">women</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <p class="w-21 text-end">Recommended use:</p>
+                            <p class="text-gray-600 w-55">climbing, hut touring, mountaineering, hillwalking,
+                                trekking</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <p class="w-20 text-end">Main material:</p>
+                            <p class="text-gray-600 w-55">100% polyester</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <p class="w-20 text-end">Material pockets:</p>
+                            <p class="text-gray-600 w-55">100% polyamide</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <p class="w-20 text-end">Material type:</p>
+                            <p class="text-gray-600 w-55">fleece, synthetic fibre</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <p class="w-20 text-end">Fabric treatment:</p>
+                            <p class="text-gray-600 w-55">DWR treated</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <p class="w-20 text-end">Fabric properties:</p>
+                            <p class="text-gray-600 w-55">insulated</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <p class="w-20 text-end">Shop consciously:</p>
+                            <p class="text-gray-600 w-55">Fair Trade Certified, contains recycled polyester, contains
+                                recycled polyamide, PFC-/PFAS-free</p>
+                        </div>
+                    </div>
+
+                    <div class="w-50">
+                        <div class="d-flex gap-2">
+                            <p class="w-30 text-end">Closure:</p>
+                            <p class="text-gray-600">full length front zip</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <p class="w-30 text-end">Hood:</p>
+                            <p class="text-gray-600">yes</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <p class="w-30 text-end">Pockets:</p>
+                            <p class="text-gray-600">1 zipped chest pocket, 2 zipped front pockets</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <p class="w-30 text-end">Weight:</p>
+                            <p class="text-gray-600">388 g</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <p class="w-30 text-end">Reference size:</p>
+                            <p class="text-gray-600">medium size</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <p class="w-30 text-end">Fit:</p>
+                            <p class="text-gray-600">regular</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <p class="w-30 text-end">Extras:</p>
+                            <p class="text-gray-600">elastic hem, elastic sleeve cuffs</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <p class="w-30 text-end">Item No.:</p>
+                            <p class="text-gray-600">005-3736</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="d-flex align-items-center gap-3 mt-4">
+                <div class="border w-50"></div>
+                <img src="./assets/img/design/detail.png" alt=""/>
+                <div class="border w-50"></div>
+            </div>
+
+            <h6 class="text-center mt-3 fw-medium">PRODUCT DESCRIPTION</h6>
+
+            <div class="p-5">
+                <p class="text-gray-600">
+                    Lorem ipsum dolor sit amet. Aut officiis suscipit qui iste unde quo enim consequatur id quod velit.
+                    Et dolor voluptatibus et quia omnis est repellendus eligendi est quia veniam. Et unde reprehenderit
+                    ex dolor odit sed esse soluta et consectetur sint aut consequuntur magni et voluptate Quis rem
+                    blanditiis dolor. At quam recusandae ea reprehenderit excepturi eum magni labore aut debitis odit
+                    rem dolor nihil.
+                </p>
+                <p class="text-gray-600">
+                    Lorem ipsum dolor sit amet. Aut officiis suscipit qui iste unde quo enim consequatur id quod velit.
+                    Et dolor voluptatibus et quia omnis est repellendus eligendi est quia veniam. Et unde reprehenderit
+                    ex dolor odit sed esse soluta et consectetur sint aut consequuntur magni et voluptate Quis rem
+                    blanditiis dolor. At quam recusandae ea reprehenderit excepturi eum magni labore aut debitis odit
+                    rem dolor nihil.
+                </p>
+            </div>
+        </div>
+
+        <div>
+            <div class="d-flex align-items-center gap-3 mt-4">
+                <div class="border w-50"></div>
+                <img src="./assets/img/design/detail.png" alt=""/>
+                <div class="border w-50"></div>
+            </div>
+
+            <h6 class="text-center mt-3 fw-medium">REVIEWS OVERVIEW</h6>
+
+            <div class="d-flex gap-5 p-5 flex-wrap">
+                <div class="d-flex flex-column w-300 bg-light-blue p-4 align-items-center">
+                    <h1 style="font-size: 56px">4.7</h1>
+                    <div>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-half"></i>
+                    </div>
+                    <div class="mt-3">
+                        <span class="fw-medium">Customer Rating</span>
+                        <span class="text-gray-700">(934,516)</span>
+                    </div>
+                </div>
+
+                <div class="w-650 d-flex flex-column gap-3">
+                    <div class="d-flex gap-3 align-items-center">
+                        <div>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <div class="progress w-60 h-30">
+                            <div class="progress-bar bg-gray-800" role="progressbar" style="width: 63%"
+                                 aria-valuenow="63"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div>
+                            <span class="fw-medium">63%</span>
+                            <span class="text-gray-800-light">(94,532)</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-3 align-items-center">
+                        <div>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star"></i>
+                        </div>
+                        <div class="progress w-60 h-30">
+                            <div class="progress-bar bg-gray-800" role="progressbar" style="width: 24%"
+                                 aria-valuenow="24"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div>
+                            <span class="fw-medium">24%</span>
+                            <span class="text-gray-800-light">(6.717)</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-3 align-items-center">
+                        <div>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                        </div>
+                        <div class="progress w-60 h-30">
+                            <div class="progress-bar bg-gray-800" role="progressbar" style="width: 9%" aria-valuenow="9"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div>
+                            <span class="fw-medium">9%</span>
+                            <span class="text-gray-800-light">(714)</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-3 align-items-center">
+                        <div>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                        </div>
+                        <div class="progress w-60 h-30">
+                            <div class="progress-bar bg-gray-800" role="progressbar" style="width: 1%" aria-valuenow="1"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div>
+                            <span class="fw-medium">1%</span>
+                            <span class="text-gray-800-light">(152)</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-3 align-items-center">
+                        <div>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                        </div>
+                        <div class="progress w-60 h-10">
+                            <div class="progress-bar bg-gray-800" role="progressbar" style="width: 7%" aria-valuenow="7"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div>
+                            <span class="fw-medium">7%</span>
+                            <span class="text-gray-800-light">(643)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="py-3 px-5">
+                <h5>Customer Feedback</h5>
+                <div class="mt-4">
+                    <div>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <img src="./assets/img/design/review1.png" alt=""/>
+                            <div class="ms-2">
+                                <p class="mb-2">Dianne Russell</p>
+                                <div>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                            </div>
+                            <p class="mb-0 text-gray-600">•</p>
+                            <p class="text-gray-600">Just now</p>
+                        </div>
+
+                        <div class="w-100 w-md-60 mt-3">
+                            <p class="text-gray-700">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ullamcorper ut
+                                lectus
+                                nec tincidunt. Nunc mattis dignissim arcu, sit amet consequat sem auctor a.
+                            </p>
+                        </div>
+                    </div>
+
+                    <hr class="border-2 my-4"/>
+
+                    <div>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <img src="./assets/img/design/review2.png" alt=""/>
+                            <div class="ms-2">
+                                <p class="mb-2">Courtney Henry</p>
+                                <div>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                            </div>
+                            <p class="mb-0 text-gray-600">•</p>
+                            <p class="text-gray-600">2 mins ago</p>
+                        </div>
+
+                        <div class="w-100 w-md-60 mt-3">
+                            <p class="text-gray-700">
+                                In eu tortor viverra, tempor odio ac, pretium diam.
+                            </p>
+                        </div>
+                    </div>
+
+                    <hr class="border-2 my-4"/>
+
+                    <div>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <img src="./assets/img/design/review6.png" alt=""/>
+                            <div class="ms-2">
+                                <p class="mb-2">Darrell Steward</p>
+                                <div>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                            </div>
+                            <p class="mb-0 text-gray-600">•</p>
+                            <p class="text-gray-600">21 mins ago</p>
+                        </div>
+
+                        <div class="w-100 w-md-60 mt-3">
+                            <p class="text-gray-700">
+                                Vivamus fermentum consectetur ligula vel tristique. Nulla nec quam ultricies, bibendum
+                                sem quis, sollicitudin quam. In gravida tempor faucibus. Curabitur at accumsan eros.
+                                Suspendisse cursus velit non metus posuere, quis rhoncus velit volutpat. Proin accumsan
+                                egestas pharetra.
+                            </p>
+                        </div>
+                    </div>
+
+                    <hr class="border-2 my-4"/>
+
+                    <div>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <img src="./assets/img/design/review3.png" alt=""/>
+                            <div class="ms-2">
+                                <p class="mb-2">Brooklyn Simmons</p>
+                                <div>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                            </div>
+                            <p class="mb-0 text-gray-600">•</p>
+                            <p class="text-gray-600">1 hour ago</p>
+                        </div>
+
+                        <div class="w-100 w-md-60 mt-3">
+                            <p class="text-gray-700">
+                                Vestibulum tincidunt blandit odio vel finibus.
+                            </p>
+                        </div>
+                    </div>
+
+                    <hr class="border-2 my-4"/>
+
+                    <div>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <img src="./assets/img/design/review4.png" alt=""/>
+                            <div class="ms-2">
+                                <p class="mb-2">Bessie Cooper</p>
+                                <div>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                            </div>
+                            <p class="mb-0 text-gray-600">•</p>
+                            <p class="text-gray-600">1 day ago</p>
+                        </div>
+
+                        <div class="w-100 w-md-60 mt-3">
+                            <p class="text-gray-700">
+                                Morbi condimentum ac enim in maximus. Nullam bibendum, nunc a vehicula sagittis.
+                            </p>
+                        </div>
+                    </div>
+
+                    <hr class="border-2 my-4"/>
+
+                    <div>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <img src="./assets/img/design/review5.png" alt=""/>
+                            <div class="ms-2">
+                                <p class="mb-2">Marvin McKinney</p>
+                                <div>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                            </div>
+                            <p class="mb-0 text-gray-600">•</p>
+                            <p class="text-gray-600">1 day ago</p>
+                        </div>
+
+                        <div class="w-100 w-md-60 mt-3">
+                            <p class="text-gray-700">
+                                I Love this
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-3 my-5 flex-wrap flex-xl-nowrap row-gap-3">
+                    <div class="w-300">
+                        <div class="w-100">
+                            <div class="fw-bold fs-6">RELATED PRODUCT</div>
+
+                            <div class="mt-3 w-100 d-flex flex-column">
+                                <div class="d-flex align-items-center border p-2 gap-2">
+                                    <div class="w-110 bg-light">
+                                        <img src="assets/img/design/t-short.png" alt="">
+                                    </div>
+                                    <div>
+                                        <div>Lorem ipsum dolor sit amet. Non sunt quaerat vel</div>
+                                        <div class="mt-2 fw-medium fs-7">$1,500</div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex align-items-center border mt-3 p-2 gap-2">
+                                    <div class="w-110 bg-light">
+                                        <img src="assets/img/design/t-short.png" alt="">
+                                    </div>
+                                    <div>
+                                        <div>Lorem ipsum dolor sit amet. Non sunt quaerat vel</div>
+                                        <div class="mt-2 fw-medium fs-7">$1,500</div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex align-items-center border mt-3 p-2 gap-2">
+                                    <div class="w-110 bg-light">
+                                        <img src="assets/img/design/t-short.png" alt="">
+                                    </div>
+                                    <div>
+                                        <div>Lorem ipsum dolor sit amet. Non sunt quaerat vel</div>
+                                        <div class="mt-2 fw-medium fs-7">$1,500</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-300">
+                        <div class="w-100">
+                            <div class="fw-bold fs-6">PRODUCT ACCESSORIES</div>
+
+                            <div class="mt-3 w-100 d-flex flex-column">
+                                <div class="d-flex align-items-center border p-2 gap-2">
+                                    <div class="w-110 bg-light">
+                                        <img src="assets/img/design/t-short.png" alt="">
+                                    </div>
+                                    <div>
+                                        <div>Lorem ipsum dolor sit amet. Non sunt quaerat vel</div>
+                                        <div class="mt-2 fw-medium fs-7">$1,500</div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex align-items-center border mt-3 p-2 gap-2">
+                                    <div class="w-110 bg-light">
+                                        <img src="assets/img/design/t-short.png" alt="">
+                                    </div>
+                                    <div>
+                                        <div>Lorem ipsum dolor sit amet. Non sunt quaerat vel</div>
+                                        <div class="mt-2 fw-medium fs-7">$1,500</div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex align-items-center border mt-3 p-2 gap-2">
+                                    <div class="w-110 bg-light">
+                                        <img src="assets/img/design/t-short.png" alt="">
+                                    </div>
+                                    <div>
+                                        <div>Lorem ipsum dolor sit amet. Non sunt quaerat vel</div>
+                                        <div class="mt-2 fw-medium fs-7">$1,500</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-300">
+                        <div class="w-100">
+                            <div class="fw-bold fs-6">BRAND PRODUCT</div>
+
+                            <div class="mt-3 w-100 d-flex flex-column">
+                                <div class="d-flex align-items-center border p-2 gap-2">
+                                    <div class="w-110 bg-light">
+                                        <img src="assets/img/design/t-short.png" alt="">
+                                    </div>
+                                    <div>
+                                        <div>Lorem ipsum dolor sit amet. Non sunt quaerat vel</div>
+                                        <div class="mt-2 fw-medium fs-7">$1,500</div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex align-items-center border mt-3 p-2 gap-2">
+                                    <div class="w-110 bg-light">
+                                        <img src="assets/img/design/t-short.png" alt="">
+                                    </div>
+                                    <div>
+                                        <div>Lorem ipsum dolor sit amet. Non sunt quaerat vel</div>
+                                        <div class="mt-2 fw-medium fs-7">$1,500</div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex align-items-center border mt-3 p-2 gap-2">
+                                    <div class="w-110 bg-light">
+                                        <img src="assets/img/design/t-short.png" alt="">
+                                    </div>
+                                    <div>
+                                        <div>Lorem ipsum dolor sit amet. Non sunt quaerat vel</div>
+                                        <div class="mt-2 fw-medium fs-7">$1,500</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-300">
+                        <div class="w-100">
+                            <div class="fw-bold fs-6">FEATURED PRODUCTS</div>
+
+                            <div class="mt-3 w-100 d-flex flex-column">
+                                <div class="d-flex align-items-center border p-2 gap-2">
+                                    <div class="w-110 bg-light">
+                                        <img src="assets/img/design/t-short.png" alt="">
+                                    </div>
+                                    <div>
+                                        <div>Lorem ipsum dolor sit amet. Non sunt quaerat vel</div>
+                                        <div class="mt-2 fw-medium fs-7">$1,500</div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex align-items-center border mt-3 p-2 gap-2">
+                                    <div class="w-110 bg-light">
+                                        <img src="assets/img/design/t-short.png" alt="">
+                                    </div>
+                                    <div>
+                                        <div>Lorem ipsum dolor sit amet. Non sunt quaerat vel</div>
+                                        <div class="mt-2 fw-medium fs-7">$1,500</div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex align-items-center border mt-3 p-2 gap-2">
+                                    <div class="w-110 bg-light">
+                                        <img src="assets/img/design/t-short.png" alt="">
+                                    </div>
+                                    <div>
+                                        <div>Lorem ipsum dolor sit amet. Non sunt quaerat vel</div>
+                                        <div class="mt-2 fw-medium fs-7">$1,500</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer bg-gray-900 text-white pb-4">
+    <div class="footer-content d-flex justify-content-between flex-wrap row-gap-5">
+        <div class="d-flex flex-column gap-1">
+            <div class="logo">
+                <a
+                        class="me-auto"
+                        href="/"
+                        data-element="logo"
+                >
+                    <img
+                            src="assets/img/design/logo.svg"
+                            alt=""
+                    >
+                </a>
+            </div>
+            <p class="w-250 text-gray-400 mt-3">At reprehenderit quod qui harum temporibus ea perferendis fugiat
+                et quae esse</p>
+            <p>info@logo.com</p>
+            <div class="d-flex gap-3">
+                <i class="bi bi-instagram"></i>
+                <i class="bi bi-facebook"></i>
+                <i class="bi bi-twitter"></i>
+                <i class="bi bi-youtube"></i>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-md-between gap-5 w-100 w-md-60 flex-wrap row-gap-5">
+            <div>
+                <h6 class="mb-4">QUICK LINKS</h6>
+                <div class="d-flex flex-column gap-3">
+                    <a href="#" class="text-gray-400 text-decoration-none">Shipping</a>
+                    <a href="#" class="text-gray-400 text-decoration-none">Terms and conditions</a>
+                    <a href="#" class="text-gray-400 text-decoration-none">Return policy</a>
+                    <a href="faqs-page.html" class="text-gray-400 text-decoration-none">FAQs</a>
+                    <a href="#" class="text-gray-400 text-decoration-none">Cookies</a>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <h6 class="mb-4">TITLE</h6>
+                <div class="text-gray-400 d-flex flex-column gap-3">
+                    <a href="customer-support.html" class="text-gray-400 text-decoration-none">Contact</a>
+                    <a href="about-us.html" class="text-gray-400 text-decoration-none">About us</a>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <h6>SUBSCRIBE TO NEWSLETTER TO GET NEWS FIRST</h6>
+                <div class="mt-5 bg-white input-group px-3 rounded-1 m-auto">
+                    <input type="text" class="form-control px-2 py-4 border-0" placeholder="Email address">
+                    <div class="input-group-append d-flex flex-column justify-content-center align-items-center">
+                        <button class="fw-bold bg-green-700 px-3 px-sm-4 py-3 text-white rounded-1">
+                            <span>SUBSCRIBE</span>
+                            <span class="ps-1"><i class="bi bi-arrow-right"></i></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="email d-flex align-items-center gap-2 mt-4 mb-4">
+                    <i class="bi bi-envelope text-white"></i>
+                    <p class="mb-0">email@website.com</p>
+                </div>
+                <div class="mt-4">
+                    <h6>PAYMENT OPTIONS</h6>
+                    <div class="px-4 py-3 bg-gray-800 text-white w-180 d-flex gap-3 align-items-center mb-2 mt-3 rounded">
+                        <img src="./assets/img/design/google-play.png" alt="" class="w-20 h-20"/>
+                        <div>
+                            <p class="m-0">Get it now</p>
+                            <p class="m-0">Google Play</p>
+                        </div>
+                    </div>
+                    <div>
+                        <img class="payment-option" src="./assets/img/design/badge1.png" alt=""/>
+                        <img src="./assets/img/design/badge2.png" alt=""/>
+                        <img src="./assets/img/design/badge3.png" alt=""/>
+                        <img src="./assets/img/design/badge4.png" alt=""/>
+                        <img src="./assets/img/design/badge5.png" alt=""/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <p class="text-gray-400 mb-0 text-center">Name © 2023</p>
+</footer>
+</body>
+</html>

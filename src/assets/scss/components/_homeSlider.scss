@@ -1,0 +1,162 @@
+@use '../util' as u;
+
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}
+
+
+[data-element='home-slider'] {
+  background: linear-gradient(117deg, #232d36 0.82%, #33414d 86.76%);
+  height: u.rem(900);
+  overflow: hidden;
+
+  @include u.breakpoint-down(small) {
+    height: u.rem(675);
+  }
+}
+
+[data-element='slider-wrapper'] {
+  height: 100%;
+  background-repeat: no-repeat;
+
+  @include u.breakpoint-down(medium) {
+    height: u.rem(450);
+    background-size: cover;
+  }
+}
+
+.home-slider {
+  height: 100%;
+  overflow: hidden;
+  background-image: url('../img/design/slider-wrapper.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+
+  @include u.breakpoint-down(medium) {
+    width: 100%;
+  }
+
+  .swiper-slide {
+    .home-slide-buttons {
+      .men {
+        background-color: #303639;
+      }
+      .women {
+        background-color: #FA8232;
+      }
+    }
+  }
+
+  .swiper-slide-sub-title {
+      color: #ABDBFA;
+  }
+}
+
+[data-element='map-pin'] {
+  cursor: pointer;
+}
+
+[data-element='pin-content'] {
+  width: u.rem(550);
+  scale: 0;
+  opacity: 0;
+  visibility: hidden;
+  top: -10% !important;
+  transition: all 0.35s ease;
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  &.active {
+    scale: 1;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  @include u.breakpoint-down(small) {
+    width: u.rem(350);
+    bottom: 0;
+    font-size: u.rem(12);
+  }
+}
+
+[data-element='pin-text'] {
+  min-height: u.rem(100);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.map-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 99999999;
+
+  @include u.breakpoint-down(small) {
+    display: none;
+  }
+}
+
+.map-next-btn {
+  right: 0;
+}
+
+
+[data-element='map-pin-mobile'] {
+  position: absolute;
+  width: 100%;
+  margin-top: -220px;
+  z-index: -2;
+
+  [data-element='pin-content-mobile'] {
+    opacity: 0;
+    visibility: hidden;
+    scale: 0;
+    transition: all 0.35s ease;
+    font-size: u.rem(12);
+    pointer-events: none;
+    z-index: -2;
+
+    &.active {
+      z-index: 2;
+      scale: 1;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: all;
+    }
+  }
+}
+
+.homeSlidePagination {
+  bottom: u.rem(56) !important;
+  text-align:  left !important;
+
+  margin-left: u.rem(56);
+  @include u.breakpoint-down(medium) {
+    bottom: 15px !important;
+  }
+
+  .swiper-pagination-bullet {
+    width: 12px !important;
+    height: 12px !important;
+    background-color: white !important;
+  }
+
+}
+
+
