@@ -465,7 +465,7 @@
     </div>
 
     <div class="container my-5" x-data="{ openModal: false  }">
-        <div class="d-flex gap-5 flex-wrap justify-content-center row-gap-5">
+        <div class="d-flex gap-5 flex-wrap flex-xl-nowrap justify-content-center row-gap-5">
             <div class="w-100 w-xl-260">
                 <div class="class shadow-sm py-2 border rounded">
                     <a href="dashboard.html" class="d-block py-3 ps-4 account-navbar">
@@ -670,76 +670,78 @@
                         <div class="fs-4 p-4 fw-bold">
                             Product <span class="text-secondary">(02)</span>
                         </div>
-                        <table class="table orders-table">
-                            <thead>
-                            <tr>
-                                <th class="px-4 bg-gray-500 text-secondary py-3 fw-bold">PRODUCTS</th>
-                                <th class="bg-gray-500 text-secondary py-3 fw-bold">PRICE</th>
-                                <th class="bg-gray-500 text-secondary py-3 fw-bold">QUANTITY</th>
-                                <th class="bg-gray-500 text-secondary py-3 fw-bold">SUB-TOTAL</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr class="border-bottom">
-                                <td class="border-0 w-50">
-                                    <div class="d-flex ps-4 gap-3 align-items-center">
-                                        <div>
-                                            <img src="../assets/img/design/t-short.png" alt="">
-                                        </div>
+                        <div class="w-100 overflow-auto ">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th class="px-4 bg-gray-500 text-secondary py-3 fw-bold">PRODUCTS</th>
+                                    <th class="bg-gray-500 text-secondary py-3 fw-bold">PRICE</th>
+                                    <th class="bg-gray-500 text-secondary py-3 fw-bold">QUANTITY</th>
+                                    <th class="bg-gray-500 text-secondary py-3 fw-bold">SUB-TOTAL</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="border-bottom">
+                                    <td class="border-0 w-50">
+                                        <div class="d-flex ps-4 gap-3 align-items-center">
+                                            <div class="w-200">
+                                                <img src="../assets/img/design/t-short.png" alt="" class="w-100">
+                                            </div>
 
-                                        <div>
-                                            <div class="text-secondary-500 fw-bold">
-                                                Product type
-                                            </div>
-                                            <div class="mt-2">
-                                                Lorem ipsum dolor sit amet
+                                            <div>
+                                                <div class="text-secondary-500 fw-bold">
+                                                    Product type
+                                                </div>
+                                                <div class="mt-2">
+                                                    Lorem ipsum dolor sit amet
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="border-0">
-                                    <div>
-                                        <span class="text-secondary">$899</span>
-                                    </div>
-                                </td>
-                                <td class="border-0 text-secondary">
-                                    x1
-                                </td>
-                                <td class="border-0">
-                                    <div class="fw-bold">$899</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="border-0 w-50">
-                                    <div class="d-flex ps-4 gap-3 align-items-center">
+                                    </td>
+                                    <td class="border-0">
                                         <div>
-                                            <img src="../assets/img/design/t-short.png" alt="">
+                                            <span class="text-secondary">$899</span>
                                         </div>
+                                    </td>
+                                    <td class="border-0 text-secondary">
+                                        x1
+                                    </td>
+                                    <td class="border-0">
+                                        <div class="fw-bold">$899</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="border-0 w-50">
+                                        <div class="d-flex ps-4 gap-3 align-items-center">
+                                            <div class="w-200">
+                                                <img src="../assets/img/design/t-short.png" alt="" class="w-100">
+                                            </div>
 
-                                        <div>
-                                            <div class="text-secondary-500 fw-bold">
-                                                Product type
-                                            </div>
-                                            <div class="mt-2">
-                                                Lorem ipsum dolor sit amet
+                                            <div>
+                                                <div class="text-secondary-500 fw-bold">
+                                                    Product type
+                                                </div>
+                                                <div class="mt-2">
+                                                    Lorem ipsum dolor sit amet
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="border-0">
-                                    <div>
-                                        <span class="text-secondary">$899</span>
-                                    </div>
-                                </td>
-                                <td class="border-0 text-secondary">
-                                    x1
-                                </td>
-                                <td class="border-0">
-                                    <div class="fw-bold">$899</div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                                    </td>
+                                    <td class="border-0">
+                                        <div>
+                                            <span class="text-secondary">$899</span>
+                                        </div>
+                                    </td>
+                                    <td class="border-0 text-secondary">
+                                        x1
+                                    </td>
+                                    <td class="border-0">
+                                        <div class="fw-bold">$899</div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
                         <hr>
 

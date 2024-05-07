@@ -490,7 +490,7 @@
     </div>
 
     <div class="container my-5">
-        <div class="d-flex gap-5 flex-wrap justify-content-center row-gap-5">
+        <div class="d-flex gap-5 flex-wrap flex-xl-nowrap justify-content-center row-gap-5">
             <div class="w-100 w-xl-260">
                 <div class="shadow-sm py-2 border rounded">
                     <a href="dashboard.html" class="d-block py-3 ps-4 account-navbar">
@@ -799,82 +799,85 @@
 
                     <hr class="m-0">
 
-                    <table class="table orders-table">
-                        <thead>
-                        <tr>
-                            <th class="bg-gray-500 text-secondary py-3">ORDER ID</th>
-                            <th class="bg-gray-500 text-secondary py-3">STATUS</th>
-                            <th class="bg-gray-500 text-secondary py-3">DATE</th>
-                            <th class="bg-gray-500 text-secondary py-3">TOTAL</th>
-                            <th class="bg-gray-500 text-secondary py-3">ACTION</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td class="border-0 ps-3 pt-4">
-                                <div class="fw-medium">#96459761</div>
-                            </td>
-                            <td class="border-0">
-                                <div class="text-primary-500">IN PROGRESS</div>
-                            </td>
-                            <td class="border-0">
-                                <div class="text-secondary">Dec 30, 2019 05:18</div>
-                            </td>
-                            <td class="border-0">
-                                <div class="text-gray-700">$1,500 (5 Products)</div>
-                            </td>
-                            <td class="border-0">
-                                <a href="order-details.html" class="d-block text-secondary-500">
-                                    <span class="fw-bold">View Details</span>
-                                    <span class="ps-1"><i class="bi bi-arrow-right"></i></span>
-                                </a>
-                            </td>
-                        </tr>
+                    <div class="w-100 overflow-auto">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th class="bg-gray-500 text-secondary py-3">ORDER ID</th>
+                                <th class="bg-gray-500 text-secondary py-3">STATUS</th>
+                                <th class="bg-gray-500 text-secondary py-3">DATE</th>
+                                <th class="bg-gray-500 text-secondary py-3">TOTAL</th>
+                                <th class="bg-gray-500 text-secondary py-3">ACTION</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="border-0 ps-3 pt-4">
+                                    <div class="fw-medium">#96459761</div>
+                                </td>
+                                <td class="border-0">
+                                    <div class="text-primary-500">IN PROGRESS</div>
+                                </td>
+                                <td class="border-0">
+                                    <div class="text-secondary">Dec 30, 2019 05:18</div>
+                                </td>
+                                <td class="border-0">
+                                    <div class="text-gray-700">$1,500 (5 Products)</div>
+                                </td>
+                                <td class="border-0">
+                                    <a href="order-details.html" class="d-block text-secondary-500">
+                                        <span class="fw-bold">View Details</span>
+                                        <span class="ps-1"><i class="bi bi-arrow-right"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
 
-                        <tr>
-                            <td class="border-0 ps-3 pt-4">
-                                <div class="fw-medium">#71667167</div>
-                            </td>
-                            <td class="border-0">
-                                <div class="text-success-500">COMPLETED</div>
-                            </td>
-                            <td class="border-0">
-                                <div class="text-secondary">Feb 2, 2019 19:28</div>
-                            </td>
-                            <td class="border-0">
-                                <div class="text-gray-700">$80 (11 Products)</div>
-                            </td>
-                            <td class="border-0">
-                                <a href="order-details.html" class="d-block text-secondary-500">
-                                    <span class="fw-bold">View Details</span>
-                                    <span class="ps-1"><i class="bi bi-arrow-right"></i></span>
-                                </a>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td class="border-0 ps-3 pt-4">
+                                    <div class="fw-medium">#71667167</div>
+                                </td>
+                                <td class="border-0">
+                                    <div class="text-success-500">COMPLETED</div>
+                                </td>
+                                <td class="border-0">
+                                    <div class="text-secondary">Feb 2, 2019 19:28</div>
+                                </td>
+                                <td class="border-0">
+                                    <div class="text-gray-700">$80 (11 Products)</div>
+                                </td>
+                                <td class="border-0">
+                                    <a href="order-details.html" class="d-block text-secondary-500">
+                                        <span class="fw-bold">View Details</span>
+                                        <span class="ps-1"><i class="bi bi-arrow-right"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
 
-                        <tr>
-                            <td class="border-0 ps-3 pt-4">
-                                <div class="fw-medium">#95214362</div>
-                            </td>
-                            <td class="border-0">
-                                <div class="text-danger-500">CANCELED</div>
-                            </td>
-                            <td class="border-0">
-                                <div class="text-secondary">Mar 20, 2019 23:14</div>
-                            </td>
-                            <td class="border-0">
-                                <div class="text-gray-700">$160 (3 Products)</div>
-                            </td>
-                            <td class="border-0">
-                                <a href="order-details.html" class="d-block text-secondary-500">
-                                    <span class="fw-bold">View Details</span>
-                                    <span class="ps-1"><i class="bi bi-arrow-right"></i></span>
-                                </a>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td class="border-0 ps-3 pt-4">
+                                    <div class="fw-medium">#95214362</div>
+                                </td>
+                                <td class="border-0">
+                                    <div class="text-danger-500">CANCELED</div>
+                                </td>
+                                <td class="border-0">
+                                    <div class="text-secondary">Mar 20, 2019 23:14</div>
+                                </td>
+                                <td class="border-0">
+                                    <div class="text-gray-700">$160 (3 Products)</div>
+                                </td>
+                                <td class="border-0">
+                                    <a href="order-details.html" class="d-block text-secondary-500">
+                                        <span class="fw-bold">View Details</span>
+                                        <span class="ps-1"><i class="bi bi-arrow-right"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
 
                 <div class="mt-4 border rounded">
@@ -889,7 +892,7 @@
                     <div class="swiper dashboardCarousel p-2 pb-5">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide w-100">
-                                <div class="d-flex gap-1 flex-wrap">
+                                <div class="d-flex gap-1 flex-wrap flex-xl-nowrap justify-content-center justify-content-xl-start">
                                     <div class="w-236 py-3">
                                         <div class="px-1 border-end bw-2">
                                             <div class="position-absolute bg-danger-500 text-white fw-bold p-2 px-3 rounded-1">
@@ -1007,7 +1010,7 @@
                             </div>
 
                             <div class="swiper-slide w-100">
-                                <div class="d-flex gap-1 flex-wrap">
+                                <div class="d-flex gap-1 flex-wrap flex-xl-nowrap justify-content-center justify-content-xl-start">
                                     <div class="w-236 py-3">
                                         <div class="px-1 border-end bw-2">
                                             <div class="position-absolute bg-danger-500 text-white fw-bold p-2 px-3 rounded-1">
@@ -1124,7 +1127,7 @@
                                 </div>
                             </div>
                             <div class="swiper-slide w-100">
-                                <div class="d-flex gap-1 flex-wrap">
+                                <div class="d-flex gap-1 flex-wrap flex-xl-nowrap justify-content-center justify-content-xl-start">
                                     <div class="w-236 py-3">
                                         <div class="px-1 border-end bw-2">
                                             <div class="position-absolute bg-danger-500 text-white fw-bold p-2 px-3 rounded-1">
@@ -1241,7 +1244,7 @@
                                 </div>
                             </div>
                             <div class="swiper-slide w-100">
-                                <div class="d-flex gap-1 flex-wrap">
+                                <div class="d-flex gap-1 flex-wrap flex-xl-nowrap justify-content-center justify-content-xl-start">
                                     <div class="w-236 py-3">
                                         <div class="px-1 border-end bw-2">
                                             <div class="position-absolute bg-danger-500 text-white fw-bold p-2 px-3 rounded-1">
