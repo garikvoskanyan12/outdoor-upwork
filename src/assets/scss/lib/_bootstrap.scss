@@ -81,6 +81,7 @@ $accordion-border-radius: 15px;
 $form-check-input-checked-bg-image: url("data:image/svg+xml,%3Csvg width='18' height='13' viewBox='0 0 18 13' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.00023 10.172L16.1922 0.979004L17.6072 2.393L7.00023 13L0.63623 6.636L2.05023 5.222L7.00023 10.172Z' fill='black'/%3E%3C/svg%3E%0A");
 
 @import '~bootstrap/scss/bootstrap';
+//@import "bootstrap-icons/font/bootstrap-icons.css";
 
 $utilities: map-merge(
                 $utilities,

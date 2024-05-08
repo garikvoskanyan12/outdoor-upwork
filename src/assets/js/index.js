@@ -6,6 +6,7 @@ import './modules/mobileMenu';
 import megamenu from './modules/megemenu';
 import cart from './modules/cart'
 import Alpine from 'alpinejs';
+import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons CSS
 
 window.Alpine = Alpine;
 Alpine.data('megamenu', megamenu);
