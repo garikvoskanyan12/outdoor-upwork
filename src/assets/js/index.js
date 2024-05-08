@@ -7,6 +7,7 @@ import megamenu from './modules/megemenu';
 import cart from './modules/cart'
 import Alpine from 'alpinejs';
 import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons CSS
+import * as bootstrap from 'bootstrap';
 
 window.Alpine = Alpine;
 Alpine.data('megamenu', megamenu);
@@ -15,6 +16,12 @@ Alpine.data('cart', cart);
 Alpine.start();
 
 document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.dropdown-menu').forEach(function (element) {
+        element.addEventListener('click', function (e) {
+            e.stopPropagation();
+        });
+    });
+
     const dropdown = document.querySelector('.person-dropdown');
     dropdown.addEventListener('mouseenter', function () {
 
